@@ -1,624 +1,880 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-lang="en">
 <head>
-    <title>Anura Advertising | Vehicle Branding & Digital Printing Solutions</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="We are specialised in vehicle branding, name boards, hoardings and all other digital printing solutions. Since 1994." />
-    <meta name="keywords"
-        content="ads, advertising, outdoor advertising, anura ads, indoor advertising, anura advertising, vehicle branding, name boards, hoardings, bus branding, lorry branding" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Anura Advertising | Vehicle Branding & Digital Printing Solutions">
-    <meta property="og:description"
-        content="We are specialised in vehicle branding, name boards, hoardings and all other digital printing solutions.">
-    <meta property="og:image" content="https://anuraadvertising.lk/assets/fe/img/logo_light.png" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anura Advertising | Vehicle Branding &amp; Digital Printing Solutions</title>
+<meta name="description" content="We are specialised in vehicle branding, name boards, hoardings and all other digital printing solutions. Since 1994.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D1B2A;
+    --ink-2:#12233a;
+    --ink-3:#1a3350;
+    --paper:#F7F5F0;
+    --paper-2:#EFEBE1;
+    --orange:#FF5A1F;
+    --orange-dim:#c94515;
+    --steel:#3A6EA5;
+    --charcoal:#1B1F23;
+    --chrome:#8A94A3;
+    --white:#ffffff;
+    --line: rgba(255,255,255,0.14);
+    --line-dark: rgba(27,31,35,0.12);
+    --display: 'Oswald', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --si: 'Noto Sans Sinhala', 'Inter', sans-serif;
+  }
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family: var(--body);
+    background: var(--paper);
+    color: var(--charcoal);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  html[data-lang="si"] body, html[data-lang="si"] .i18n{ font-family: var(--si); }
+  html[data-lang="si"] h1, html[data-lang="si"] h2, html[data-lang="si"] h3, html[data-lang="si"] .display{
+    font-family: var(--si);
+    letter-spacing:0;
+  }
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer;}
+  section{position:relative;}
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="https://anuraadvertising.lk/assets/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://anuraadvertising.lk/assets/icon/favicon-16x16.png">
+  .display{ font-family: var(--display); text-transform:uppercase; letter-spacing:0.02em; }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color: var(--orange);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:2px; background:var(--orange);
+    display:inline-block;
+  }
+  .wrap{ max-width:1220px; margin:0 auto; padding:0 32px; }
+  [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].is-visible{ opacity:1; transform:translateY(0); }
 
-    <link rel="stylesheet" href="style.css">
+  /* Crop / registration marks — printing motif used as structural device */
+  .crop{ position:absolute; width:16px; height:16px; pointer-events:none; opacity:0.55; }
+  .crop::before,.crop::after{ content:""; position:absolute; background:currentColor; }
+  .crop::before{ width:100%; height:1px; top:50%; }
+  .crop::after{ width:1px; height:100%; left:50%; }
+  .crop.tl{ top:18px; left:18px; color:var(--orange); }
+  .crop.tr{ top:18px; right:18px; color:var(--orange); }
+  .crop.bl{ bottom:18px; left:18px; color:var(--orange); }
+  .crop.br{ bottom:18px; right:18px; color:var(--orange); }
+  .on-light .crop{ color:var(--orange); }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(13,27,42,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:background .3s ease;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px; max-width:1220px; margin:0 auto;
+  }
+  .logo{ display:flex; align-items:center; gap:10px; }
+  .logo-mark{
+    font-family:var(--display); font-weight:700; font-size:1.4rem; color:var(--white);
+    letter-spacing:0.06em;
+  }
+  .logo-mark span{ color:var(--orange); }
+  .nav-links{ display:flex; align-items:center; gap:30px; }
+  .nav-links a{
+    font-family:var(--mono); font-size:0.76rem; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--chrome); transition:color .2s ease; position:relative; padding:4px 0;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--white); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--orange);
+    transition:width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:14px; }
+  .lang-toggle{
+    display:flex; border:1px solid var(--line); border-radius:20px; overflow:hidden;
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em;
+  }
+  .lang-toggle button{
+    background:transparent; border:none; color:var(--chrome); padding:6px 12px;
+    transition:all .2s ease;
+  }
+  .lang-toggle button.active{ background:var(--orange); color:var(--white); }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding:11px 20px; border-radius:2px; border:1px solid transparent; cursor:pointer;
+    transition:transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+  }
+  .btn-solid{ background:var(--orange); color:var(--white); }
+  .btn-solid:hover{ background:var(--orange-dim); transform:translateY(-2px); }
+  .btn-outline{ border-color:var(--line); color:var(--white); }
+  .btn-outline:hover{ border-color:var(--orange); color:var(--orange); transform:translateY(-2px); }
+  .btn-outline.on-light{ border-color:var(--line-dark); color:var(--charcoal); }
+  .btn-outline.on-light:hover{ border-color:var(--orange); color:var(--orange); }
+
+  .burger{ display:none; flex-direction:column; gap:5px; background:none; border:none; z-index:110; }
+  .burger span{ width:24px; height:2px; background:var(--white); display:block; transition:.3s; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh; display:flex; align-items:center; position:relative;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(255,90,31,0.16), transparent 45%),
+      linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+    color:var(--white); padding-top:90px; overflow:hidden;
+  }
+  .hero-stripes{
+    position:absolute; inset:0; opacity:0.05; pointer-events:none;
+    background: repeating-linear-gradient(115deg, var(--white) 0px, var(--white) 2px, transparent 2px, transparent 46px);
+  }
+  .hero-inner{ position:relative; z-index:2; max-width:1220px; margin:0 auto; padding:60px 32px; width:100%; }
+  .hero-tag{ font-family:var(--mono); font-size:0.78rem; letter-spacing:0.2em; color:var(--orange); margin-bottom:22px; text-transform:uppercase; }
+  .hero h1{
+    font-size:clamp(2.6rem, 7vw, 5.6rem); line-height:0.98; font-weight:700;
+    max-width:900px;
+  }
+  .hero h1 em{ font-style:normal; color:var(--orange); }
+  .hero-sub{
+    margin-top:26px; max-width:520px; font-size:1.05rem; line-height:1.65; color:#C7CEDA;
+  }
+  .hero-actions{ display:flex; gap:16px; margin-top:40px; flex-wrap:wrap; }
+  .hero-meta{
+    margin-top:64px; display:flex; gap:44px; flex-wrap:wrap;
+    border-top:1px solid var(--line); padding-top:26px;
+  }
+  .hero-meta div{ font-family:var(--mono); font-size:0.72rem; color:var(--chrome); letter-spacing:0.05em; }
+  .hero-meta strong{ display:block; font-family:var(--display); font-size:1.5rem; color:var(--white); font-weight:600; letter-spacing:0.02em; }
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    background:var(--orange); color:var(--ink); overflow:hidden; white-space:nowrap;
+    border-top:1px solid rgba(0,0,0,0.1); border-bottom:1px solid rgba(0,0,0,0.1);
+  }
+  .ticker-track{ display:inline-flex; animation:scroll-left 32s linear infinite; }
+  .ticker-track span{
+    font-family:var(--display); font-weight:600; font-size:1rem; letter-spacing:0.08em;
+    padding:14px 26px; text-transform:uppercase; display:inline-flex; align-items:center; gap:26px;
+  }
+  .ticker-track span::after{ content:"✦"; font-size:0.7rem; opacity:0.6; }
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- SECTION HEADS ---------- */
+  .section{ padding:110px 0; }
+  .section-head{ max-width:640px; margin-bottom:60px; }
+  .section-head h2{ font-size:clamp(2rem,4vw,3rem); margin-top:14px; font-weight:600; }
+  .on-dark{ background:var(--ink); color:var(--white); }
+  .on-dark .chrome-text{ color:var(--chrome); }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line-dark); border:1px solid var(--line-dark); }
+  .service-card{
+    background:var(--paper); padding:38px 32px; position:relative; overflow:hidden;
+    transition:background .3s ease;
+    min-height:260px; display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .service-card::before{
+    content:""; position:absolute; top:0; right:0; width:0; height:0;
+    border-style:solid; border-width:0 0 0 0; background:var(--orange);
+    transition:width .35s ease, height .35s ease;
+  }
+  .service-card:hover::before{ width:46px; height:46px; clip-path:polygon(100% 0,0 0,100% 100%); }
+  .service-num{ font-family:var(--mono); font-size:0.72rem; color:var(--chrome); }
+  .service-icon{ width:40px; height:40px; margin:18px 0 22px; color:var(--orange); }
+  .service-card h3{ font-family:var(--display); font-size:1.3rem; font-weight:600; letter-spacing:0.01em; margin-bottom:10px; }
+  .service-card p{ color:#5a6270; font-size:0.92rem; line-height:1.6; }
+  .service-link{ margin-top:18px; font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--orange); display:inline-flex; align-items:center; gap:6px; }
+  .service-card:hover .service-link{ gap:10px; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:start; }
+  .about-copy p{ color:var(--chrome); line-height:1.75; margin-bottom:18px; font-size:0.98rem; }
+  .about-copy p:first-of-type{ color:#E4E8EE; font-size:1.08rem; }
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:10px;}
+  .stat{ background:var(--ink); padding:30px 24px; }
+  .stat strong{ font-family:var(--mono); font-size:2.6rem; font-weight:500; color:var(--orange); display:block; }
+  .stat span{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--chrome); }
+
+  /* ---------- FEATURED PROJECTS ---------- */
+  .proj-scroll{ display:flex; gap:20px; overflow-x:auto; padding-bottom:20px; scroll-snap-type:x mandatory; }
+  .proj-scroll::-webkit-scrollbar{ height:6px; }
+  .proj-scroll::-webkit-scrollbar-thumb{ background:var(--orange); border-radius:6px; }
+  .proj-card{
+    flex:0 0 300px; scroll-snap-align:start; position:relative; border-radius:2px; overflow:hidden;
+    aspect-ratio:4/5; background:var(--charcoal);
+  }
+  .proj-card img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+  .proj-card:hover img{ transform:scale(1.08); }
+  .proj-overlay{
+    position:absolute; inset:0; background:linear-gradient(0deg, rgba(13,27,42,0.92) 0%, rgba(13,27,42,0.15) 55%, transparent 75%);
+    display:flex; flex-direction:column; justify-content:flex-end; padding:22px; color:var(--white);
+  }
+  .proj-overlay span{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em; color:var(--orange); text-transform:uppercase; }
+  .proj-overlay h3{ font-family:var(--display); font-weight:600; font-size:1.15rem; margin-top:6px; }
+
+  /* ---------- PORTFOLIO ---------- */
+  .filter-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
+  .filter-btn{
+    background:transparent; border:1px solid var(--line-dark); color:var(--charcoal);
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase;
+    padding:9px 16px; border-radius:20px; transition:all .2s ease;
+  }
+  .filter-btn.active, .filter-btn:hover{ background:var(--ink); color:var(--white); border-color:var(--ink); }
+  .portfolio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .pf-item{ position:relative; overflow:hidden; border-radius:2px; aspect-ratio:1/1; cursor:pointer; background:#000; }
+  .pf-item img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease, opacity .3s ease; }
+  .pf-item:hover img{ transform:scale(1.07); opacity:0.75; }
+  .pf-peel{
+    position:absolute; top:0; right:0; width:0; height:0;
+    background:linear-gradient(135deg, var(--paper) 48%, rgba(0,0,0,0.15) 50%);
+    transition:width .3s ease, height .3s ease; z-index:2;
+  }
+  .pf-item:hover .pf-peel{ width:52px; height:52px; }
+  .pf-caption{
+    position:absolute; left:0; right:0; bottom:0; padding:18px;
+    background:linear-gradient(0deg, rgba(0,0,0,0.85), transparent);
+    color:var(--white); transform:translateY(8px); opacity:0; transition:all .3s ease;
+  }
+  .pf-item:hover .pf-caption{ transform:translateY(0); opacity:1; }
+  .pf-caption span{ font-family:var(--mono); font-size:0.65rem; color:var(--orange); text-transform:uppercase; letter-spacing:0.08em; }
+  .pf-caption h4{ font-family:var(--display); font-size:1rem; margin-top:4px; }
+  .pf-item.hide{ display:none; }
+
+  /* Lightbox */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(13,27,42,0.95); z-index:200;
+    display:none; align-items:center; justify-content:center; padding:40px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{ max-width:min(90vw,900px); max-height:80vh; object-fit:contain; border:1px solid var(--line); }
+  .lightbox-close{
+    position:absolute; top:28px; right:32px; background:none; border:1px solid var(--line);
+    color:var(--white); width:42px; height:42px; border-radius:50%; font-size:1.2rem;
+  }
+  .lightbox-caption{ position:absolute; bottom:36px; left:0; right:0; text-align:center; color:var(--chrome); font-family:var(--mono); font-size:0.8rem; }
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-wrap{ max-width:760px; margin:0 auto; text-align:center; position:relative; }
+  .testi-slide{ display:none; }
+  .testi-slide.active{ display:block; animation:fade-in .5s ease; }
+  @keyframes fade-in{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+  .testi-quote{ font-family:var(--display); font-size:clamp(1.2rem,2.6vw,1.7rem); font-weight:500; line-height:1.5; color:var(--white); }
+  .testi-author{ margin-top:24px; font-family:var(--mono); font-size:0.78rem; letter-spacing:0.06em; color:var(--orange); text-transform:uppercase; }
+  .testi-dots{ display:flex; justify-content:center; gap:10px; margin-top:40px; }
+  .testi-dots button{ width:8px; height:8px; border-radius:50%; background:var(--line); border:none; transition:all .2s ease; }
+  .testi-dots button.active{ background:var(--orange); width:22px; border-radius:5px; }
+
+  /* ---------- QUOTE FORM ---------- */
+  .quote-panel{
+    background:var(--white); border:1px solid var(--line-dark); position:relative;
+    display:grid; grid-template-columns:1fr 1.3fr;
+  }
+  .quote-info{ background:var(--ink); color:var(--white); padding:52px 44px; display:flex; flex-direction:column; justify-content:space-between; }
+  .quote-info-top .tag{
+    display:inline-block; font-family:var(--mono); font-size:0.68rem; letter-spacing:0.1em;
+    border:1px solid var(--orange); color:var(--orange); padding:4px 10px; border-radius:20px; margin-bottom:20px; text-transform:uppercase;
+  }
+  .quote-info h3{ font-family:var(--display); font-size:1.8rem; line-height:1.2; font-weight:600; }
+  .quote-info p{ margin-top:16px; color:var(--chrome); font-size:0.92rem; line-height:1.6; }
+  .quote-info-list{ margin-top:34px; }
+  .quote-info-list li{ font-family:var(--mono); font-size:0.78rem; color:#C7CEDA; padding:8px 0; border-top:1px solid var(--line); display:flex; gap:10px; }
+  .quote-info-list li::before{ content:"→"; color:var(--orange); }
+
+  .quote-form{ padding:52px 44px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+  .field{ display:flex; flex-direction:column; gap:7px; }
+  .field label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--chrome); }
+  .field input, .field select, .field textarea{
+    border:none; border-bottom:1.5px solid var(--line-dark); background:transparent; padding:10px 2px;
+    font-family:var(--body); font-size:0.95rem; color:var(--charcoal); outline:none; transition:border-color .2s ease;
+  }
+  html[data-lang="si"] .field input, html[data-lang="si"] .field select, html[data-lang="si"] .field textarea{ font-family:var(--si); }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--orange); }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .form-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:26px; flex-wrap:wrap; gap:16px; }
+  .form-note{ font-size:0.78rem; color:var(--chrome); max-width:280px; }
+  .form-success{
+    display:none; align-items:center; gap:14px; background:#F0FBF4; border:1px solid #BFE6CC; color:#166534;
+    padding:16px 18px; border-radius:2px; font-size:0.9rem; margin-top:20px;
+  }
+  .form-success.show{ display:flex; }
+  .form-success svg{ flex:0 0 auto; width:22px; height:22px; }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+  .contact-cards{ display:flex; flex-direction:column; gap:1px; background:var(--line-dark); border:1px solid var(--line-dark); }
+  .c-card{ background:var(--paper); padding:26px 28px; display:flex; gap:18px; align-items:flex-start; }
+  .c-card svg{ width:24px; height:24px; color:var(--orange); flex:0 0 auto; margin-top:2px; }
+  .c-card h4{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--chrome); margin-bottom:6px; }
+  .c-card p{ font-size:0.98rem; line-height:1.5; }
+  .map-frame{ border:1px solid var(--line-dark); overflow:hidden; height:100%; min-height:320px; }
+  .map-frame iframe{ width:100%; height:100%; min-height:320px; border:0; filter:grayscale(0.3) contrast(1.05); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:var(--chrome); padding:70px 0 26px; }
+  .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:50px; margin-bottom:60px; }
+  .footer-logo{ font-family:var(--display); font-size:1.5rem; color:var(--white); font-weight:700; }
+  .footer-logo span{ color:var(--orange); }
+  .footer-grid p{ margin-top:16px; font-size:0.9rem; line-height:1.6; max-width:320px; }
+  .footer-social{ display:flex; gap:12px; margin-top:22px; }
+  .footer-social a{ width:38px; height:38px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .2s ease; }
+  .footer-social a:hover{ background:var(--orange); border-color:var(--orange); color:var(--ink); }
+  .footer-col h5{ font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--white); margin-bottom:18px; }
+  .footer-col li{ margin-bottom:10px; font-size:0.9rem; }
+  .footer-col a:hover{ color:var(--orange); }
+  .footer-bottom{ border-top:1px solid var(--line); padding-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.78rem; }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:90; width:58px; height:58px; border-radius:50%;
+    background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,0.25);
+    transition:transform .2s ease;
+  }
+  .wa-float:hover{ transform:scale(1.08); }
+  .wa-float svg{ width:28px; height:28px; color:white; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .nav-links{ position:fixed; top:0; right:0; height:100vh; width:78%; max-width:340px;
+      background:var(--ink); flex-direction:column; align-items:flex-start; padding:100px 32px 40px;
+      transform:translateX(100%); transition:transform .35s ease; gap:22px; border-left:1px solid var(--line);
+    }
+    .nav-links.open{ transform:translateX(0); }
+    .burger{ display:flex; }
+    .services-grid{ grid-template-columns:1fr 1fr; }
+    .about-grid, .contact-grid{ grid-template-columns:1fr; gap:40px; }
+    .quote-panel{ grid-template-columns:1fr; }
+    .portfolio-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:640px){
+    .services-grid, .portfolio-grid{ grid-template-columns:1fr; }
+    .form-row{ grid-template-columns:1fr; }
+    .hero-meta{ gap:28px; }
+    .quote-info, .quote-form{ padding:36px 24px; }
+    .section{ padding:76px 0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+</style>
 </head>
-
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-ring"></div>
-            <div class="preloader-ring"></div>
-            <div class="preloader-ring"></div>
-            <span class="preloader-text">ANURA</span>
-        </div>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <nav class="nav">
+    <a href="#home" class="logo">
+      <span class="logo-mark">ANURA<span>.</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="i18n" data-en="Home" data-si="මුල් පිටුව">Home</a></li>
+      <li><a href="#services" class="i18n" data-en="Services" data-si="සේවාවන්">Services</a></li>
+      <li><a href="#about-us" class="i18n" data-en="About" data-si="අප ගැන">About</a></li>
+      <li><a href="#projects" class="i18n" data-en="Projects" data-si="ව්‍යාපෘති">Projects</a></li>
+      <li><a href="#portfolio" class="i18n" data-en="Portfolio" data-si="කෘති එකතුව">Portfolio</a></li>
+      <li><a href="#contact" class="i18n" data-en="Contact" data-si="සම්බන්ධ වන්න">Contact</a></li>
+      <li><a href="#quote" class="btn btn-solid i18n" data-en="Get a Quote" data-si="මිල ගණන් ලබාගන්න">Get a Quote</a></li>
+    </ul>
+    <div class="nav-cta">
+      <div class="lang-toggle" id="langToggle">
+        <button data-set-lang="en" class="active">EN</button>
+        <button data-set-lang="si">සිං</button>
+      </div>
+      <a href="#quote" class="btn btn-outline i18n" data-en="Get a Quote" data-si="මිල ගණන්" style="display:none" id="ctaDesktop">Get a Quote</a>
+      <button class="burger" id="burgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
+  </nav>
+</header>
 
-    <!-- WhatsApp Float -->
-    <a href="https://api.whatsapp.com/send?phone=+94772776757&text=Hello" class="whatsapp-float" target="_blank"
-        aria-label="Chat on WhatsApp" id="whatsapp-btn">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+<!-- ================= HERO ================= -->
+<section class="hero" id="home">
+  <div class="hero-stripes"></div>
+  <div class="crop tl"></div><div class="crop tr"></div>
+  <div class="hero-inner">
+    <div class="hero-tag i18n" data-en="Sri Lanka · Since 1994 · Vehicle Branding &amp; Digital Print" data-si="ශ්‍රී ලංකාව · 1994 සිට · වාහන වෙළඳ නාම කිරීම සහ ඩිජිටල් මුද්‍රණය">Sri Lanka · Since 1994 · Vehicle Branding &amp; Digital Print</div>
+    <h1 class="display i18n" data-en='Turning vision into <em>reality</em>' data-si='දැක්ම <em>යථාර්ථයක්</em> බවට පත් කිරීම'>Turning vision into <em>reality</em></h1>
+    <p class="hero-sub i18n" data-en="We wrap buses, trucks and fleets, build hoardings and name boards, and print anything you can imagine — with 32 years of craft behind every job." data-si="අපි බස්, ලොරි සහ වාහන කණ්ඩායම් ආවරණය කරමු, දැන්වීම් පුවරු සහ නාම පුවරු නිර්මාණය කරමු, ඔබට සිතාගත හැකි ඕනෑම දෙයක් මුද්‍රණය කරමු — වසර 32ක අත්දැකීමක් සමඟින්.">We wrap buses, trucks and fleets, build hoardings and name boards, and print anything you can imagine — with 32 years of craft behind every job.</p>
+    <div class="hero-actions">
+      <a href="#quote" class="btn btn-solid i18n" data-en="Request a Quote" data-si="මිල ගණනක් ඉල්ලන්න">Request a Quote</a>
+      <a href="#portfolio" class="btn btn-outline i18n" data-en="View Portfolio" data-si="කෘති එකතුව බලන්න">View Portfolio</a>
+    </div>
+    <div class="hero-meta">
+      <div><strong>32+</strong><span class="i18n" data-en="Years of Craft" data-si="අත්දැකීම් වසර">Years of Craft</span></div>
+      <div><strong>850+</strong><span class="i18n" data-en="Projects Delivered" data-si="සම්පූර්ණ ව්‍යාපෘති">Projects Delivered</span></div>
+      <div><strong>5</strong><span class="i18n" data-en="Core Services" data-si="ප්‍රධාන සේවාවන්">Core Services</span></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Back to Top -->
-    <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
-        <i class="fa-solid fa-angle-up"></i>
-    </a>
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <span>Bus Branding</span><span>Truck Branding</span><span>Vehicle Branding</span><span>Outdoor Advertising</span><span>Indoor Advertising</span><span>Name Boards</span><span>Digital Printing</span>
+    <span>Bus Branding</span><span>Truck Branding</span><span>Vehicle Branding</span><span>Outdoor Advertising</span><span>Indoor Advertising</span><span>Name Boards</span><span>Digital Printing</span>
+  </div>
+</div>
 
-    <!-- Navigation -->
-    <header class="header" id="header">
-        <div class="header-inner">
-            <div class="logo-wrap">
-                <a href="#home" class="logo-link">
-                    <img class="logo-img" src="https://anuraadvertising.lk/assets/fe/img/logo_light.png"
-                        alt="Anura Advertising Logo">
-                </a>
-            </div>
-            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-                <span class="nav-toggle-bar"></span>
-                <span class="nav-toggle-bar"></span>
-                <span class="nav-toggle-bar"></span>
-            </button>
-            <nav class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="https://anuraadvertising.lk/uploads/corporate-profile.pdf" class="nav-link"
-                            target="_blank">Corporate Profile</a></li>
-                    <li><a href="#about-us" class="nav-link">About</a></li>
-                    <li><a href="#projects" class="nav-link">Featured Projects</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
+<!-- ================= SERVICES ================= -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="eyebrow i18n" data-en="What We Do" data-si="අප කරන්නේ">What We Do</div>
+      <h2 class="display i18n" data-en="Five ways we get your brand seen" data-si="ඔබේ වෙළඳනාමය පෙන්වීමට ක්‍රම පහක්">Five ways we get your brand seen</h2>
+    </div>
+    <div class="services-grid" data-reveal>
+
+      <div class="service-card">
+        <div><span class="service-num">01</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="14" width="40" height="20" rx="3"/><path d="M4 22h40"/><circle cx="14" cy="38" r="3"/><circle cx="34" cy="38" r="3"/><path d="M10 14V9a2 2 0 0 1 2-2h24a2 2 0 0 1 2 2v5"/></svg>
+          <h3 class="i18n" data-en="Bus Branding" data-si="බස් රථ වෙළඳ නාම කිරීම">Bus Branding</h3>
+          <p class="i18n" data-en="Transform buses into mobile billboards that capture attention across every route." data-si="බස් රථ, සෑම මාර්ගයකම අවධානය ආකර්ෂණය කරන ජංගම දැන්වීම් පුවරු බවට පත් කරමු.">Transform buses into mobile billboards that capture attention across every route.</p>
         </div>
-        <!-- Mobile Corporate Profile Bar -->
-        <div class="corporate-bar-mobile">
-            <a href="https://anuraadvertising.lk/uploads/corporate-profile.pdf" target="_blank">
-                Download our corporate profile <i class="fa-solid fa-download"></i>
-            </a>
+        <a href="https://anuraadvertising.lk/portfolio/bus-branding" class="service-link i18n" data-en="View work →" data-si="කෘති බලන්න →">View work →</a>
+      </div>
+
+      <div class="service-card">
+        <div><span class="service-num">02</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="18" width="24" height="16" rx="2"/><path d="M26 22h10l8 8v4a2 2 0 0 1-2 2H26z"/><circle cx="12" cy="38" r="3"/><circle cx="34" cy="38" r="3"/></svg>
+          <h3 class="i18n" data-en="Truck Branding" data-si="ලොරි වෙළඳ නාම කිරීම">Truck Branding</h3>
+          <p class="i18n" data-en="High-impact truck wraps that deliver your brand message on the open road." data-si="විවෘත මාර්ගයේ ඔබේ වෙළඳ පණිවිඩය ලබා දෙන ප්‍රබල ලොරි ආවරණ.">High-impact truck wraps that deliver your brand message on the open road.</p>
         </div>
-    </header>
+        <a href="https://anuraadvertising.lk/portfolio/truck-branding" class="service-link i18n" data-en="View work →" data-si="කෘති බලන්න →">View work →</a>
+      </div>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-slider" id="hero-slider">
-                <div class="hero-slide active"
-                    style="background-image: url('https://anuraadvertising.lk/uploads/post/banner_1.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <span class="hero-tag animate-in">Welcome to</span>
-                        <h1 class="hero-title animate-in">Anura Advertising</h1>
-                        <p class="hero-subtitle animate-in">Innovation for tomorrow.</p>
-                        <a href="#services" class="hero-btn animate-in">Explore Services</a>
-                    </div>
-                </div>
-                <div class="hero-slide"
-                    style="background-image: url('https://anuraadvertising.lk/uploads/post/banner_3.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <span class="hero-tag animate-in">We Deliver</span>
-                        <h1 class="hero-title animate-in">Creativity of Ideas</h1>
-                        <p class="hero-subtitle animate-in">Turning vision into reality since 1994.</p>
-                        <a href="#about-us" class="hero-btn animate-in">Learn More</a>
-                    </div>
-                </div>
-                <div class="hero-slide"
-                    style="background-image: url('https://anuraadvertising.lk/uploads/post/banner_2.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <span class="hero-tag animate-in">Experience</span>
-                        <h1 class="hero-title animate-in">Great Service</h1>
-                        <p class="hero-subtitle animate-in">For a greater happiness.</p>
-                        <a href="#contact" class="hero-btn animate-in">Get in Touch</a>
-                    </div>
-                </div>
-                <div class="hero-slide"
-                    style="background-image: url('https://anuraadvertising.lk/uploads/post/banner_4.jpg');">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <span class="hero-tag animate-in">We Make</span>
-                        <h1 class="hero-title animate-in">Magic a Reality</h1>
-                        <p class="hero-subtitle animate-in">Transforming your brand's presence everywhere.</p>
-                        <a href="#portfolio" class="hero-btn animate-in">View Portfolio</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Slider Controls -->
-            <div class="hero-slider-controls">
-                <button class="slider-dot active" data-slide="0" aria-label="Slide 1"></button>
-                <button class="slider-dot" data-slide="1" aria-label="Slide 2"></button>
-                <button class="slider-dot" data-slide="2" aria-label="Slide 3"></button>
-                <button class="slider-dot" data-slide="3" aria-label="Slide 4"></button>
-            </div>
-            <a href="#services" class="hero-scroll-down" aria-label="Scroll down">
-                <i class="fa-solid fa-angle-down"></i>
-            </a>
-        </section>
-
-        <!-- Services Section -->
-        <section class="services" id="services">
-            <div class="services-grid">
-                <a href="https://anuraadvertising.lk/portfolio/bus-branding" class="service-card" id="service-bus">
-                    <div class="service-bg"
-                        style="background-image: url('https://anuraadvertising.lk/assets/fe/img/services/bus-branding.jpg');">
-                    </div>
-                    <div class="service-overlay"></div>
-                    <div class="service-content">
-                        <div class="service-icon"><i class="fa-solid fa-bus"></i></div>
-                        <h3 class="service-title">Bus Branding</h3>
-                        <p class="service-desc">Transform buses into mobile billboards that capture attention across
-                            every route.</p>
-                        <span class="service-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                <a href="https://anuraadvertising.lk/portfolio/truck-branding" class="service-card" id="service-truck">
-                    <div class="service-bg"
-                        style="background-image: url('https://anuraadvertising.lk/assets/fe/img/services/truck-branding.jpeg');">
-                    </div>
-                    <div class="service-overlay"></div>
-                    <div class="service-content">
-                        <div class="service-icon"><i class="fa-solid fa-truck"></i></div>
-                        <h3 class="service-title">Truck Branding</h3>
-                        <p class="service-desc">High-impact truck wraps that deliver your brand message on the open
-                            road.</p>
-                        <span class="service-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                <a href="https://anuraadvertising.lk/portfolio/vehilce-branding" class="service-card"
-                    id="service-vehicle">
-                    <div class="service-bg"
-                        style="background-image: url('https://anuraadvertising.lk/assets/fe/img/services/vehicle-branding.jpeg');">
-                    </div>
-                    <div class="service-overlay"></div>
-                    <div class="service-content">
-                        <div class="service-icon"><i class="fa-solid fa-car"></i></div>
-                        <h3 class="service-title">Vehicle Branding</h3>
-                        <p class="service-desc">Professional vehicle wraps and graphics for cars, vans, and fleets.</p>
-                        <span class="service-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                <a href="https://anuraadvertising.lk/portfolio/outdoor-branding" class="service-card"
-                    id="service-outdoor">
-                    <div class="service-bg"
-                        style="background-image: url('https://anuraadvertising.lk/assets/fe/img/services/outdoor-branding.jpg');">
-                    </div>
-                    <div class="service-overlay"></div>
-                    <div class="service-content">
-                        <div class="service-icon"><i class="fa-solid fa-billboard"></i></div>
-                        <h3 class="service-title">Outdoor Advertising</h3>
-                        <p class="service-desc">Hoardings, billboards, and signage that dominate the landscape.</p>
-                        <span class="service-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </a>
-                <a href="https://anuraadvertising.lk/portfolio/indoor-branding" class="service-card"
-                    id="service-indoor">
-                    <div class="service-bg"
-                        style="background-image: url('https://anuraadvertising.lk/assets/fe/img/services/indoor-branding.jpg');">
-                    </div>
-                    <div class="service-overlay"></div>
-                    <div class="service-content">
-                        <div class="service-icon"><i class="fa-solid fa-store"></i></div>
-                        <h3 class="service-title">Indoor Advertising</h3>
-                        <p class="service-desc">Name boards, interior graphics, and retail display solutions.</p>
-                        <span class="service-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- About Us Section -->
-        <section class="about" id="about-us">
-            <div class="container">
-                <div class="about-header">
-                    <span class="section-tag">Who We Are</span>
-                    <h2 class="section-title">About Us</h2>
-                    <div class="section-divider"></div>
-                    <h3 class="about-tagline">32 years on the Printing market. We work since 1994.</h3>
-                </div>
-                <div class="about-grid">
-                    <div class="about-content">
-                        <p>Anura Advertising is a private limited company founded on the grounds of its uniqueness of
-                            creativity blended through hand and the latest technology. Uniqueness is an oath taken by
-                            the team. Our company turns the customers' idea of creativity into a dream come true.</p>
-                        <p>We serve the corporate and individual demands of name boards, vehicle branding, hoardings,
-                            and provide all digital printing solutions. Since 1994, we are recognized as the leading
-                            company in our industry.</p>
-                        <p>In maintaining our devotion to "Innovation of creativity", we want the potential as well as
-                            our current client base to be informed that our utmost commitment is to make sure customer
-                            satisfaction is maintained above and beyond stated levels.</p>
-                    </div>
-                    <div class="about-content">
-                        <p>Your connection with our company is required at every level of the project because for us it
-                            is not only about completion but experience and quality you define from our service.</p>
-                        <p>Our team works the best to complete the taken project with zero hassle for the customer from
-                            handing over the project to completion of the project. We are advantaged by the best
-                            experience and the most creative staff who are equipped with the latest technology to cater
-                            to your demand.</p>
-                        <p>In the process we also give the priority of safety and hassle-free environment to our staff.
-                            Through a friendly environment we are able to protect our most valued asset, our employees.
-                        </p>
-                    </div>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-card" id="stat-years">
-                        <div class="stat-number" data-target="32">0</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card" id="stat-projects">
-                        <div class="stat-number" data-target="1500">0</div>
-                        <div class="stat-label">Projects Completed</div>
-                    </div>
-                    <div class="stat-card" id="stat-clients">
-                        <div class="stat-number" data-target="800">0</div>
-                        <div class="stat-label">Happy Clients</div>
-                    </div>
-                    <div class="stat-card" id="stat-team">
-                        <div class="stat-number" data-target="50">0</div>
-                        <div class="stat-label">Team Members</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Projects Section -->
-        <section class="projects" id="projects">
-            <div class="container">
-                <div class="projects-header">
-                    <span class="section-tag">Our Work</span>
-                    <h2 class="section-title">Featured Works</h2>
-                    <div class="section-divider"></div>
-                </div>
-                <div class="projects-carousel" id="projects-carousel">
-                    <div class="projects-track" id="projects-track">
-                        <div class="project-card" id="project-uruwala">
-                            <img src="https://anuraadvertising.lk/uploads/projects/005.jpg" alt="Tea Bar By Uruwala Tea"
-                                class="project-img" loading="lazy">
-                            <div class="project-overlay">
-                                <div class="project-info">
-                                    <h3 class="project-title">Tea Bar By Uruwala Tea</h3>
-                                    <span class="project-category">Uruwala Tea</span>
-                                    <a href="https://anuraadvertising.lk/index.php/project/16" class="project-link">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-card" id="project-lcb">
-                            <img src="https://anuraadvertising.lk/uploads/projects/lcb-finance-1-min.png"
-                                alt="LCB Finance" class="project-img" loading="lazy">
-                            <div class="project-overlay">
-                                <div class="project-info">
-                                    <h3 class="project-title">LCB Finance</h3>
-                                    <span class="project-category">LCB Finance</span>
-                                    <a href="https://anuraadvertising.lk/index.php/project/10" class="project-link">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-card" id="project-ceypecto">
-                            <img src="https://anuraadvertising.lk/uploads/projects/ceypecto-1-min.png"
-                                alt="Ceypecto Tank" class="project-img" loading="lazy">
-                            <div class="project-overlay">
-                                <div class="project-info">
-                                    <h3 class="project-title">Ceypecto Tank</h3>
-                                    <span class="project-category">Ceypecto Tank</span>
-                                    <a href="https://anuraadvertising.lk/index.php/project/9" class="project-link">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-card" id="project-wasthi">
-                            <img src="https://anuraadvertising.lk/uploads/projects/wasthi-1-min.png" alt="Wasthi Bus"
-                                class="project-img" loading="lazy">
-                            <div class="project-overlay">
-                                <div class="project-info">
-                                    <h3 class="project-title">Wasthi Bus</h3>
-                                    <span class="project-category">NCG Express</span>
-                                    <a href="https://anuraadvertising.lk/index.php/project/7" class="project-link">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="project-card" id="project-sdb">
-                            <img src="https://anuraadvertising.lk/uploads/projects/sdb-1-min.png" alt="SDB Bank"
-                                class="project-img" loading="lazy">
-                            <div class="project-overlay">
-                                <div class="project-info">
-                                    <h3 class="project-title">SDB Bank Kegalla</h3>
-                                    <span class="project-category">SDB Bank</span>
-                                    <a href="https://anuraadvertising.lk/index.php/project/2" class="project-link">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Previous project">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Next project">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section -->
-        <section class="portfolio" id="portfolio">
-            <div class="container">
-                <div class="portfolio-header">
-                    <span class="section-tag">Portfolio</span>
-                    <h2 class="section-title">Browse Our Work</h2>
-                    <div class="section-divider"></div>
-                </div>
-                <div class="portfolio-filter">
-                    <button class="filter-btn active" data-filter="all" id="filter-all">All</button>
-                    <button class="filter-btn" data-filter="bus" id="filter-bus">Bus Branding</button>
-                    <button class="filter-btn" data-filter="truck" id="filter-truck">Truck Branding</button>
-                    <button class="filter-btn" data-filter="vehicle" id="filter-vehicle">Vehicle Branding</button>
-                    <button class="filter-btn" data-filter="outdoor" id="filter-outdoor">Outdoor</button>
-                    <button class="filter-btn" data-filter="indoor" id="filter-indoor">Indoor</button>
-                </div>
-                <div class="portfolio-grid" id="portfolio-grid">
-                    <div class="portfolio-item" data-category="bus">
-                        <img src="https://anuraadvertising.lk/uploads/projects/005.jpg" alt="Tea Bar By Uruwala Tea"
-                            loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>Tea Bar By Uruwala Tea</h4>
-                            <span>Bus Branding</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-category="bus">
-                        <img src="https://anuraadvertising.lk/uploads/projects/vino-1-min.png" alt="Vino Bus"
-                            loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>Vino Bus</h4>
-                            <span>Bus Branding</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-category="vehicle">
-                        <img src="https://anuraadvertising.lk/uploads/projects/Kebab rider.png" alt="Kebab Rider"
-                            loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>Kebab Rider</h4>
-                            <span>Vehicle Branding</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-category="bus">
-                        <img src="https://anuraadvertising.lk/uploads/projects/wasthi-1-min.png" alt="Wasthi Bus"
-                            loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>Wasthi Bus</h4>
-                            <span>Bus Branding</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-category="truck">
-                        <img src="https://anuraadvertising.lk/uploads/projects/lcb-finance-1-min.png"
-                            alt="LCB Finance" loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>LCB Finance</h4>
-                            <span>Truck Branding</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-category="outdoor">
-                        <img src="https://anuraadvertising.lk/uploads/projects/ceypecto-1-min.png" alt="Ceypecto Tank"
-                            loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>Ceypecto Tank</h4>
-                            <span>Outdoor Advertising</span>
-                        </div>
-                    </div>
-                    <div class="portfolio-item" data-category="vehicle">
-                        <img src="https://anuraadvertising.lk/uploads/projects/sdb-1-min.png" alt="SDB Bank"
-                            loading="lazy">
-                        <div class="portfolio-item-overlay">
-                            <h4>SDB Bank Kegalla</h4>
-                            <span>Vehicle Branding</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="testimonials" id="testimonials">
-            <div class="testimonials-bg"></div>
-            <div class="container">
-                <div class="testimonials-header">
-                    <span class="section-tag section-tag--light">Testimonials</span>
-                    <h2 class="section-title section-title--light">Happy Clients</h2>
-                    <div class="section-divider section-divider--light"></div>
-                </div>
-                <div class="testimonials-slider" id="testimonials-slider">
-                    <div class="testimonial-card active" id="testimonial-1">
-                        <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
-                        <p class="testimonial-text">Best place to get vehicles branded. They have done a neat job with
-                            the vehicle. Could not have asked for a better service.</p>
-                        <div class="testimonial-stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-card" id="testimonial-2">
-                        <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
-                        <p class="testimonial-text">Customer service given by the employees was spot on. They were quite
-                            friendly with communication of ideas and recommendations. Each and every staff member of
-                            Anura Advertising was wearing smile up their sleeves for us. It was so welcoming.</p>
-                        <div class="testimonial-stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-card" id="testimonial-3">
-                        <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
-                        <p class="testimonial-text">We did not have any idea of how to brand our bus but as soon as we
-                            arrived the management helped us with ideas. They kept their word and gave our bus a whole
-                            new outlook. We couldn't believe our eyes. Truly the best.</p>
-                        <div class="testimonial-stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-card" id="testimonial-4">
-                        <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
-                        <p class="testimonial-text">They took care of our vehicle better than us. They finished the
-                            project and the bus looked better than brand new.</p>
-                        <div class="testimonial-stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-card" id="testimonial-5">
-                        <div class="testimonial-quote"><i class="fa-solid fa-quote-left"></i></div>
-                        <p class="testimonial-text">We got a name board done by them. The quality was super. The design
-                            and fonts were simple and decent. Best place for name boards.</p>
-                        <div class="testimonial-stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonials-dots" id="testimonials-dots">
-                    <button class="t-dot active" data-testimonial="0" aria-label="Testimonial 1"></button>
-                    <button class="t-dot" data-testimonial="1" aria-label="Testimonial 2"></button>
-                    <button class="t-dot" data-testimonial="2" aria-label="Testimonial 3"></button>
-                    <button class="t-dot" data-testimonial="3" aria-label="Testimonial 4"></button>
-                    <button class="t-dot" data-testimonial="4" aria-label="Testimonial 5"></button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="contact" id="contact">
-            <div class="contact-bg"></div>
-            <div class="container">
-                <div class="contact-header">
-                    <span class="section-tag section-tag--light">Contact</span>
-                    <h2 class="section-title section-title--light">Get in Touch</h2>
-                    <div class="section-divider section-divider--light"></div>
-                </div>
-                <div class="contact-grid">
-                    <div class="contact-info-cards">
-                        <div class="contact-info-card" id="contact-phone">
-                            <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
-                            <h4>Phone</h4>
-                            <p>+94 11 209 2474</p>
-                            <p>+94 77 277 6757</p>
-                        </div>
-                        <div class="contact-info-card" id="contact-email">
-                            <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
-                            <h4>Email</h4>
-                            <p>sales@anuraadvertising.lk</p>
-                        </div>
-                        <div class="contact-info-card" id="contact-location">
-                            <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
-                            <h4>Location</h4>
-                            <p>No:57/C, Kirigampamunuwa,<br>Polgasovita, Sri Lanka</p>
-                        </div>
-                    </div>
-                    <div class="contact-form-wrap">
-                        <form id="contact-form" class="contact-form" action="https://anuraadvertising.lk/contact"
-                            method="POST">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input name="name" id="form-name" type="text" placeholder="Your Name *" required>
-                                </div>
-                                <div class="form-group">
-                                    <input name="mail" id="form-email" type="email" placeholder="Your Email *" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="comment" id="form-message" placeholder="Your Message *" rows="5"
-                                    required></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn" id="submit-message">
-                                <span>Send Message</span>
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Google Map -->
-        <section class="map-section" id="map-section">
-            <iframe width="100%" height="100%" id="gmap_canvas"
-                src="https://www.google.com/maps/d/u/0/embed?mid=1IH-Luoycbh4xfi0Gx-aPETntZTIH7YLb" frameborder="0"
-                scrolling="no" marginheight="0" marginwidth="0" loading="lazy"
-                title="Anura Advertising Location"></iframe>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer" id="footer">
-        <div class="footer-main">
-            <div class="container">
-                <div class="footer-grid">
-                    <div class="footer-col">
-                        <h5 class="footer-title">Get in Touch</h5>
-                        <p class="footer-text"><i class="fa-solid fa-phone"></i> +94 11 209 2474</p>
-                        <p class="footer-text"><i class="fa-solid fa-phone"></i> +94 77 277 6757</p>
-                        <p class="footer-text"><i class="fa-solid fa-envelope"></i> sales@anuraadvertising.lk</p>
-                    </div>
-                    <div class="footer-col footer-col--center">
-                        <a href="#home" class="footer-logo-link">
-                            <img src="https://anuraadvertising.lk/assets/fe/img/logo_light.png"
-                                alt="Anura Advertising" class="footer-logo-img">
-                        </a>
-                        <p class="footer-tagline">We are specialised in vehicle branding, name boards, hoardings and all
-                            other digital printing solutions.</p>
-                        <div class="footer-socials">
-                            <a href="https://www.facebook.com/Anuraadskottawa" target="_blank" class="social-link"
-                                aria-label="Facebook" id="facebook-link">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </a>
-                            <a href="https://api.whatsapp.com/send?phone=+94772776757&text=Hello" target="_blank"
-                                class="social-link" aria-label="WhatsApp" id="whatsapp-link">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="footer-col footer-col--right">
-                        <h5 class="footer-title">Location</h5>
-                        <p class="footer-text">Anura Advertising (Pvt) Ltd</p>
-                        <p class="footer-text">No:57/C, Kirigampamunuwa,<br>Polgasovita, Sri Lanka</p>
-                    </div>
-                </div>
-            </div>
+      <div class="service-card">
+        <div><span class="service-num">03</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 30l6-12h16l6 12"/><rect x="4" y="30" width="28" height="8" rx="2"/><circle cx="12" cy="40" r="3"/><circle cx="26" cy="40" r="3"/><path d="M32 30h8l4 6v2a2 2 0 0 1-2 2h-2"/></svg>
+          <h3 class="i18n" data-en="Vehicle Branding" data-si="වාහන වෙළඳ නාම කිරීම">Vehicle Branding</h3>
+          <p class="i18n" data-en="Professional vehicle wraps and graphics for cars, vans, and fleets." data-si="මෝටර් රථ, වෑන් සහ වාහන කණ්ඩායම් සඳහා වෘත්තීය ආවරණ සහ ග්‍රැෆික්ස්.">Professional vehicle wraps and graphics for cars, vans, and fleets.</p>
         </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="footer-bottom-inner">
-                    <span class="copyright">
-                        &copy; 2026 Anura Advertising (Pvt) Ltd | Another Project By
-                        <a href="http://www.seguinetechnologies.com" target="_blank">Seguine Technologies</a>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </footer>
+        <a href="https://anuraadvertising.lk/portfolio/vehilce-branding" class="service-link i18n" data-en="View work →" data-si="කෘති බලන්න →">View work →</a>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="service-card">
+        <div><span class="service-num">04</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="8" width="36" height="20" rx="1"/><path d="M14 28v10M34 28v10M10 44h28"/><path d="M12 16h24M12 21h16"/></svg>
+          <h3 class="i18n" data-en="Outdoor Advertising" data-si="එළිමහන් වෙළඳ දැන්වීම්">Outdoor Advertising</h3>
+          <p class="i18n" data-en="Hoardings, billboards, and signage that dominate the landscape." data-si="භූදර්ශනය ආධිපත්‍යය දරන දැන්වීම් පුවරු සහ සලකුණු.">Hoardings, billboards, and signage that dominate the landscape.</p>
+        </div>
+        <a href="https://anuraadvertising.lk/portfolio/outdoor-branding" class="service-link i18n" data-en="View work →" data-si="කෘති බලන්න →">View work →</a>
+      </div>
+
+      <div class="service-card">
+        <div><span class="service-num">05</span>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 20l18-12 18 12v20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><rect x="18" y="26" width="12" height="16"/></svg>
+          <h3 class="i18n" data-en="Indoor Advertising" data-si="ඇතුළත වෙළඳ දැන්වීම්">Indoor Advertising</h3>
+          <p class="i18n" data-en="Name boards, interior graphics, and retail display solutions." data-si="නාම පුවරු, අභ්‍යන්තර ග්‍රැෆික්ස් සහ සිල්ලර සාප්පු ප්‍රදර්ශන විසඳුම්.">Name boards, interior graphics, and retail display solutions.</p>
+        </div>
+        <a href="https://anuraadvertising.lk/portfolio/indoor-branding" class="service-link i18n" data-en="View work →" data-si="කෘති බලන්න →">View work →</a>
+      </div>
+
+      <div class="service-card" style="background:var(--ink); color:var(--white);">
+        <div>
+          <span class="service-num" style="color:var(--chrome)">+</span>
+          <h3 class="i18n" style="margin-top:18px" data-en="Not sure what you need?" data-si="ඔබට අවශ්‍ය දේ ගැන විශ්වාස නැද්ද?">Not sure what you need?</h3>
+          <p class="i18n" style="color:var(--chrome)" data-en="Tell us about your brand and vehicle or space — we'll recommend the right solution." data-si="ඔබේ වෙළඳනාමය සහ වාහනය හෝ ඉඩකඩ ගැන අපට කියන්න — අපි නිවැරදි විසඳුම නිර්දේශ කරමු.">Tell us about your brand and vehicle or space — we'll recommend the right solution.</p>
+        </div>
+        <a href="#quote" class="service-link i18n" data-en="Talk to us →" data-si="අප සමඟ කතා කරන්න →">Talk to us →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section on-dark" id="about-us">
+  <div class="wrap about-grid">
+    <div data-reveal>
+      <div class="eyebrow i18n" data-en="Who We Are" data-si="අප කවුරුන්ද">Who We Are</div>
+      <h2 class="display i18n" style="margin-top:14px" data-en="32 years on the printing market" data-si="මුද්‍රණ වෙළඳපොලේ වසර 32ක්">32 years on the printing market</h2>
+      <div class="about-copy" style="margin-top:26px">
+        <p class="i18n" data-en="Anura Advertising is a private limited company built on creativity blended with hand-craft and the latest technology. Uniqueness is an oath our team takes on every project." data-si="Anura Advertising යනු අත්කම් සහ නවතම තාක්ෂණය සමඟ මිශ්‍ර වූ නිර්මාණශීලීත්වය මත ගොඩනගා ඇති පුද්ගලික සමාගමකි. සුවිශේෂත්වය අපගේ කණ්ඩායමේ සෑම ව්‍යාපෘතියකම දිවුරුමකි.">Anura Advertising is a private limited company built on creativity blended with hand-craft and the latest technology. Uniqueness is an oath our team takes on every project.</p>
+        <p class="i18n" data-en="We serve corporate and individual demand for name boards, vehicle branding and hoardings, and provide every digital printing solution in between. Since 1994, we've been recognised as a leading company in our industry." data-si="අපි නාම පුවරු, වාහන වෙළඳ නාම කිරීම සහ දැන්වීම් පුවරු සඳහා ආයතනික සහ පුද්ගලික ඉල්ලුමට සේවය කරමු, සහ අතරමැදි සියලුම ඩිජිටල් මුද්‍රණ විසඳුම් සපයමු. 1994 සිට, අපි අපගේ කර්මාන්තයේ ප්‍රමුඛ සමාගමක් ලෙස පිළිගැනී ඇත.">We serve corporate and individual demand for name boards, vehicle branding and hoardings, and provide every digital printing solution in between. Since 1994, we've been recognised as a leading company in our industry.</p>
+        <p class="i18n" data-en="Every project comes with zero-hassle handover — from concept to completion — backed by an experienced, safety-first team equipped with the latest technology." data-si="සෑම ව්‍යාපෘතියක්ම, සංකල්පයේ සිට සම්පූර්ණත්වය දක්වා, කරදරයකින් තොරව භාරදීමක් සමඟ පැමිණේ — නවතම තාක්ෂණයෙන් සමන්විත, ආරක්ෂාවට ප්‍රමුඛත්වය දෙන පළපුරුදු කණ්ඩායමක් විසින්.">Every project comes with zero-hassle handover — from concept to completion — backed by an experienced, safety-first team equipped with the latest technology.</p>
+      </div>
+    </div>
+    <div data-reveal>
+      <div class="stat-grid">
+        <div class="stat"><strong data-count="32">0</strong><span class="i18n" data-en="Years Experience" data-si="අත්දැකීම් වසර">Years Experience</span></div>
+        <div class="stat"><strong data-count="850">0</strong><span class="i18n" data-en="Projects Completed" data-si="සම්පූර්ණ ව්‍යාපෘති">Projects Completed</span></div>
+        <div class="stat"><strong data-count="400">0</strong><span class="i18n" data-en="Happy Clients" data-si="සතුටු ගනුදෙනුකරුවන්">Happy Clients</span></div>
+        <div class="stat"><strong data-count="30">0</strong><span class="i18n" data-en="Team Members" data-si="කණ්ඩායම් සාමාජිකයන්">Team Members</span></div>
+      </div>
+      <!-- Note for site owner: update data-count values above with real figures -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURED PROJECTS ================= -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="eyebrow i18n" data-en="Our Work" data-si="අපගේ කාර්යය">Our Work</div>
+      <h2 class="display i18n" data-en="Featured works" data-si="විශේෂිත කෘති">Featured works</h2>
+    </div>
+    <div class="proj-scroll" data-reveal>
+      <div class="proj-card"><img src="https://anuraadvertising.lk/uploads/projects/005.jpg" alt="Tea Bar By Uruwala Tea" loading="lazy"><div class="proj-overlay"><span>Bus Branding</span><h3>Tea Bar By Uruwala Tea</h3></div></div>
+      <div class="proj-card"><img src="https://anuraadvertising.lk/uploads/projects/lcb-finance-1-min.png" alt="LCB Finance" loading="lazy"><div class="proj-overlay"><span>Truck Branding</span><h3>LCB Finance</h3></div></div>
+      <div class="proj-card"><img src="https://anuraadvertising.lk/uploads/projects/ceypecto-1-min.png" alt="Ceypecto Tank" loading="lazy"><div class="proj-overlay"><span>Outdoor Advertising</span><h3>Ceypecto Tank</h3></div></div>
+      <div class="proj-card"><img src="https://anuraadvertising.lk/uploads/projects/wasthi-1-min.png" alt="Wasthi Bus" loading="lazy"><div class="proj-overlay"><span>Bus Branding</span><h3>Wasthi Bus — NCG Express</h3></div></div>
+      <div class="proj-card"><img src="https://anuraadvertising.lk/uploads/projects/sdb-1-min.png" alt="SDB Bank Kegalla" loading="lazy"><div class="proj-overlay"><span>Vehicle Branding</span><h3>SDB Bank Kegalla</h3></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PORTFOLIO ================= -->
+<section class="section" id="portfolio" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="eyebrow i18n" data-en="Browse" data-si="පිරික්සන්න">Browse</div>
+      <h2 class="display i18n" data-en="Our full portfolio" data-si="අපගේ සම්පූර්ණ කෘති එකතුව">Our full portfolio</h2>
+    </div>
+    <div class="filter-row" data-reveal id="filterRow">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="bus">Bus Branding</button>
+      <button class="filter-btn" data-filter="truck">Truck Branding</button>
+      <button class="filter-btn" data-filter="vehicle">Vehicle Branding</button>
+      <button class="filter-btn" data-filter="outdoor">Outdoor</button>
+      <button class="filter-btn" data-filter="indoor">Indoor</button>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid" data-reveal>
+      <div class="pf-item" data-cat="bus"><img src="https://anuraadvertising.lk/uploads/projects/005.jpg" alt="Tea Bar By Uruwala Tea"><div class="pf-peel"></div><div class="pf-caption"><span>Bus Branding</span><h4>Tea Bar By Uruwala Tea</h4></div></div>
+      <div class="pf-item" data-cat="bus"><img src="https://anuraadvertising.lk/uploads/projects/vino-1-min.png" alt="Vino Bus"><div class="pf-peel"></div><div class="pf-caption"><span>Bus Branding</span><h4>Vino Bus</h4></div></div>
+      <div class="pf-item" data-cat="vehicle"><img src="https://anuraadvertising.lk/uploads/projects/Kebab%20rider.png" alt="Kebab Rider"><div class="pf-peel"></div><div class="pf-caption"><span>Vehicle Branding</span><h4>Kebab Rider</h4></div></div>
+      <div class="pf-item" data-cat="bus"><img src="https://anuraadvertising.lk/uploads/projects/wasthi-1-min.png" alt="Wasthi Bus"><div class="pf-peel"></div><div class="pf-caption"><span>Bus Branding</span><h4>Wasthi Bus</h4></div></div>
+      <div class="pf-item" data-cat="truck"><img src="https://anuraadvertising.lk/uploads/projects/lcb-finance-1-min.png" alt="LCB Finance"><div class="pf-peel"></div><div class="pf-caption"><span>Truck Branding</span><h4>LCB Finance</h4></div></div>
+      <div class="pf-item" data-cat="outdoor"><img src="https://anuraadvertising.lk/uploads/projects/ceypecto-1-min.png" alt="Ceypecto Tank"><div class="pf-peel"></div><div class="pf-caption"><span>Outdoor Advertising</span><h4>Ceypecto Tank</h4></div></div>
+      <div class="pf-item" data-cat="vehicle"><img src="https://anuraadvertising.lk/uploads/projects/sdb-1-min.png" alt="SDB Bank Kegalla"><div class="pf-peel"></div><div class="pf-caption"><span>Vehicle Branding</span><h4>SDB Bank Kegalla</h4></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img src="" alt="" id="lightboxImg">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section on-dark">
+  <div class="wrap">
+    <div class="section-head" style="margin-left:auto; margin-right:auto; text-align:center" data-reveal>
+      <div class="eyebrow i18n" style="justify-content:center" data-en="Happy Clients" data-si="සතුටු ගනුදෙනුකරුවන්">Happy Clients</div>
+    </div>
+    <div class="testi-wrap" data-reveal>
+      <div class="testi-slide active">
+        <p class="testi-quote">"Best place to get vehicles branded. They have done a neat job with the vehicle. Could not have asked for a better service."</p>
+        <div class="testi-author">— Fleet Owner</div>
+      </div>
+      <div class="testi-slide">
+        <p class="testi-quote">"Customer service given by the employees was spot on. Every staff member was so welcoming and friendly with communication of ideas."</p>
+        <div class="testi-author">— Corporate Client</div>
+      </div>
+      <div class="testi-slide">
+        <p class="testi-quote">"We had no idea how to brand our bus, but the team helped us with ideas and gave it a whole new outlook. Truly the best."</p>
+        <div class="testi-author">— Bus Operator</div>
+      </div>
+      <div class="testi-slide">
+        <p class="testi-quote">"They took care of our vehicle better than we did. The bus looked better than brand new when they finished."</p>
+        <div class="testi-author">— Transport Company</div>
+      </div>
+      <div class="testi-slide">
+        <p class="testi-quote">"We got a name board done by them — the quality was superb, the design and fonts simple and decent. Best place for name boards."</p>
+        <div class="testi-author">— Retail Owner</div>
+      </div>
+      <div class="testi-dots" id="testiDots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUOTE FORM ================= -->
+<section class="section" id="quote">
+  <div class="wrap">
+    <div class="quote-panel" data-reveal>
+      <div class="crop tl" style="color:var(--orange)"></div>
+      <div class="quote-info">
+        <div class="quote-info-top">
+          <span class="tag i18n" data-en="New Request" data-si="නව ඉල්ලීම">New Request</span>
+          <h3 class="i18n" data-en="Tell us about your project" data-si="ඔබේ ව්‍යාපෘතිය ගැන අපට කියන්න">Tell us about your project</h3>
+          <p class="i18n" data-en="Share a few details and our team will get back to you with a quote and timeline — usually within one business day." data-si="සුළු විස්තර කිහිපයක් බෙදාගන්න, අපගේ කණ්ඩායම මිල ගණනක් සහ කාල සීමාවක් සමඟ ඔබට පිළිතුරු දෙනු ඇත — සාමාන්‍යයෙන් එක් වැඩ කරන දිනයක් තුළ.">Share a few details and our team will get back to you with a quote and timeline — usually within one business day.</p>
+        </div>
+        <ul class="quote-info-list">
+          <li class="i18n" data-en="Free consultation &amp; site visit" data-si="නොමිලේ උපදේශනය සහ ස්ථාන පරීක්ෂාව">Free consultation &amp; site visit</li>
+          <li class="i18n" data-en="Design mockup before production" data-si="නිෂ්පාදනයට පෙර නිර්මාණ මොක්අප්">Design mockup before production</li>
+          <li class="i18n" data-en="Island-wide installation" data-si="දිවයින පුරා ස්ථාපනය">Island-wide installation</li>
+        </ul>
+      </div>
+      <form class="quote-form" id="quoteForm">
+        <div class="form-row">
+          <div class="field">
+            <label class="i18n" data-en="Full Name" data-si="සම්පූර්ණ නම">Full Name</label>
+            <input type="text" name="name" required placeholder="Kasun Perera">
+          </div>
+          <div class="field">
+            <label class="i18n" data-en="Phone Number" data-si="දුරකථන අංකය">Phone Number</label>
+            <input type="tel" name="phone" required placeholder="077 123 4567">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label class="i18n" data-en="Email" data-si="විද්‍යුත් තැපෑල">Email</label>
+            <input type="email" name="email" placeholder="you@email.com">
+          </div>
+          <div class="field">
+            <label class="i18n" data-en="Service Needed" data-si="අවශ්‍ය සේවාව">Service Needed</label>
+            <select name="service" required>
+              <option value="">Select…</option>
+              <option>Bus Branding</option>
+              <option>Truck Branding</option>
+              <option>Vehicle Branding</option>
+              <option>Outdoor Advertising</option>
+              <option>Indoor Advertising</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label class="i18n" data-en="Project Details" data-si="ව්‍යාපෘති විස්තර">Project Details</label>
+          <textarea name="details" placeholder="Tell us about your vehicle, space, timeline or ideas…"></textarea>
+        </div>
+        <div class="form-foot">
+          <p class="form-note i18n" data-en="By submitting, you agree to be contacted by Anura Advertising about your request." data-si="ඉදිරිපත් කිරීමෙන්, ඔබේ ඉල්ලීම සම්බන්ධයෙන් Anura Advertising ඔබ හා සම්බන්ධ වීමට එකඟ වේ.">By submitting, you agree to be contacted by Anura Advertising about your request.</p>
+          <button type="submit" class="btn btn-solid i18n" data-en="Send Request" data-si="ඉල්ලීම යවන්න">Send Request</button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+          <span class="i18n" data-en="Request received! Your email app will open to send the details — we'll reply within one business day." data-si="ඉල්ලීම ලැබුණි! විස්තර යැවීමට ඔබේ විද්‍යුත් තැපැල් යෙදුම විවෘත වේ — අපි එක් වැඩ කරන දිනයක් තුළ පිළිතුරු දෙන්නෙමු.">Request received! Your email app will open to send the details — we'll reply within one business day.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section on-dark" id="contact">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <div class="eyebrow i18n" data-en="Get in Touch" data-si="සම්බන්ධ වන්න">Get in Touch</div>
+      <h2 class="display i18n" data-en="Let's start your project" data-si="ඔබේ ව්‍යාපෘතිය ආරම්භ කරමු">Let's start your project</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-cards" data-reveal>
+        <div class="c-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><h4 class="i18n" data-en="Phone" data-si="දුරකථනය">Phone</h4><p>+94 11 209 2474<br>+94 77 277 6757</p></div>
+        </div>
+        <div class="c-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
+          <div><h4 class="i18n" data-en="Email" data-si="විද්‍යුත් තැපෑල">Email</h4><p>sales@anuraadvertising.lk</p></div>
+        </div>
+        <div class="c-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><h4 class="i18n" data-en="Location" data-si="ස්ථානය">Location</h4><p>No:57/C, Kirigampamunuwa, Polgasovita, Sri Lanka</p></div>
+        </div>
+        <div class="c-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+          <div><h4 class="i18n" data-en="Hours" data-si="වේලාවන්">Hours</h4><p class="i18n" data-en="Mon – Sat, 8.30am – 5.30pm" data-si="සඳුදා - සෙනසුරාදා, උදේ 8.30 - සවස 5.30">Mon – Sat, 8.30am – 5.30pm</p></div>
+        </div>
+      </div>
+      <div class="map-frame" data-reveal>
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1IH-Luoycbh4xfi0Gx-aPETntZTIH7YLb" loading="lazy" title="Anura Advertising Location"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ANURA<span>.</span></div>
+        <p class="i18n" data-en="We are specialised in vehicle branding, name boards, hoardings and all other digital printing solutions." data-si="අපි වාහන වෙළඳ නාම කිරීම, නාම පුවරු, දැන්වීම් පුවරු සහ අනෙකුත් සියලුම ඩිජිටල් මුද්‍රණ විසඳුම් සඳහා විශේෂඥයෝ වෙමු.">We are specialised in vehicle branding, name boards, hoardings and all other digital printing solutions.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/Anuraadskottawa" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://api.whatsapp.com/send?phone=+94772776757&text=Hello" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5 class="i18n" data-en="Navigate" data-si="සංචලනය">Navigate</h5>
+        <ul>
+          <li><a href="#services" class="i18n" data-en="Services" data-si="සේවාවන්">Services</a></li>
+          <li><a href="#about-us" class="i18n" data-en="About" data-si="අප ගැන">About</a></li>
+          <li><a href="#portfolio" class="i18n" data-en="Portfolio" data-si="කෘති එකතුව">Portfolio</a></li>
+          <li><a href="#quote" class="i18n" data-en="Get a Quote" data-si="මිල ගණන්">Get a Quote</a></li>
+          <li><a href="https://anuraadvertising.lk/uploads/corporate-profile.pdf" class="i18n" data-en="Corporate Profile" data-si="ආයතනික පැතිකඩ">Corporate Profile</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 class="i18n" data-en="Location" data-si="ස්ථානය">Location</h5>
+        <ul>
+          <li>Anura Advertising (Pvt) Ltd</li>
+          <li>No:57/C, Kirigampamunuwa,</li>
+          <li>Polgasovita, Sri Lanka</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Anura Advertising (Pvt) Ltd</span>
+      <span class="i18n" data-en="Another Project By Seguine Technologies" data-si="තවත් ව්‍යාපෘතියක් — Seguine Technologies">Another Project By Seguine Technologies</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://api.whatsapp.com/send?phone=+94772776757&text=Hello" target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.76.46 3.48 1.34 5L2 22l5.13-1.34a10 10 0 0 0 4.91 1.29h.01c5.52 0 10-4.48 10-10s-4.48-10-10-10zm5.83 14.32c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.13-4.9-4.32-.14-.19-1.17-1.56-1.17-2.98s.73-2.11 1-2.4c.26-.29.57-.36.76-.36h.55c.18 0 .42-.07.65.5.24.58.81 2 .88 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.35 1.46.29.15.46.13.63-.08.17-.2.72-.84.91-1.13.19-.29.38-.24.63-.14.26.1 1.64.77 1.92.91.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/></svg>
+</a>
+
+<script>
+(function(){
+  // Language toggle
+  const langBtns = document.querySelectorAll('[data-set-lang]');
+  const html = document.documentElement;
+  function setLang(lang){
+    html.setAttribute('data-lang', lang);
+    document.querySelectorAll('.i18n').forEach(el=>{
+      const val = el.getAttribute('data-'+lang);
+      if(val!==null) el.innerHTML = val;
+    });
+    langBtns.forEach(b=> b.classList.toggle('active', b.dataset.setLang===lang));
+    try{ localStorage.setItem('anura-lang', lang); }catch(e){}
+  }
+  langBtns.forEach(b=> b.addEventListener('click', ()=> setLang(b.dataset.setLang)));
+
+  // Mobile menu
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', ()=>{
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  revealEls.forEach(el=> io.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('[data-count]');
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.dataset.count, 10);
+        let cur = 0;
+        const step = Math.max(1, Math.round(target/60));
+        const tick = ()=>{
+          cur += step;
+          if(cur >= target){ el.textContent = target; return; }
+          el.textContent = cur;
+          requestAnimationFrame(tick);
+        };
+        tick();
+        cio.unobserve(el);
+      }
+    });
+  }, {threshold:0.4});
+  counters.forEach(el=> cio.observe(el));
+
+  // Portfolio filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const pfItems = document.querySelectorAll('.pf-item');
+  filterBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      pfItems.forEach(item=>{
+        item.classList.toggle('hide', f!=='all' && item.dataset.cat!==f);
+      });
+    });
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  pfItems.forEach(item=>{
+    item.addEventListener('click', ()=>{
+      const img = item.querySelector('img');
+      const title = item.querySelector('h4')?.textContent || '';
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = title;
+      lightbox.classList.add('open');
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', ()=> lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') lightbox.classList.remove('open'); });
+
+  // Testimonial carousel
+  const slides = document.querySelectorAll('.testi-slide');
+  const dotsWrap = document.getElementById('testiDots');
+  let ti = 0;
+  slides.forEach((_,i)=>{
+    const d = document.createElement('button');
+    if(i===0) d.classList.add('active');
+    d.addEventListener('click', ()=> showSlide(i));
+    dotsWrap.appendChild(d);
+  });
+  function showSlide(i){
+    slides[ti].classList.remove('active');
+    dotsWrap.children[ti].classList.remove('active');
+    ti = (i+slides.length)%slides.length;
+    slides[ti].classList.add('active');
+    dotsWrap.children[ti].classList.add('active');
+  }
+  setInterval(()=> showSlide(ti+1), 5500);
+
+  // Quote form
+  const form = document.getElementById('quoteForm');
+  const success = document.getElementById('formSuccess');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = data.get('name'), phone = data.get('phone'), email = data.get('email'),
+          service = data.get('service'), details = data.get('details');
+    const subject = encodeURIComponent('Quote Request: ' + service);
+    const body = encodeURIComponent(
+      'Name: ' + name + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Email: ' + (email||'-') + '\n' +
+      'Service: ' + service + '\n' +
+      'Details: ' + (details||'-')
+    );
+    window.location.href = 'mailto:sales@anuraadvertising.lk?subject='+subject+'&body='+body;
+    success.classList.add('show');
+    form.reset();
+  });
+
+  // Restore saved language
+  try{
+    const saved = localStorage.getItem('anura-lang');
+    if(saved) setLang(saved);
+  }catch(e){}
+})();
+</script>
 </body>
-
 </html>
