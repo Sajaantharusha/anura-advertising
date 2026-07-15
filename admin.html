@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anura Advertising | Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0D1B2A; --ink-2:#12233a; --paper:#F7F5F0; --paper-2:#EFEBE1;
+    --orange:#FF5A1F; --orange-dim:#c94515; --charcoal:#1B1F23; --chrome:#8A94A3;
+    --white:#ffffff; --line:rgba(255,255,255,0.14); --line-dark:rgba(27,31,35,0.12);
+    --display:'Oswald',sans-serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+    --ok:#166534; --ok-bg:#F0FBF4; --ok-line:#BFE6CC;
+    --warn:#92400E; --warn-bg:#FEF7EC; --warn-line:#F3D9A8;
+    --bad:#991B1B; --bad-bg:#FEF2F2; --bad-line:#F3C6C6;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ font-family:var(--body); background:var(--paper); color:var(--charcoal); -webkit-font-smoothing:antialiased; }
+  button, input, select, textarea{ font-family:inherit; }
+  .display{ font-family:var(--display); text-transform:uppercase; letter-spacing:0.02em; }
+  .mono{ font-family:var(--mono); }
+  img{ max-width:100%; display:block; }
+
+  /* ---------------- LOGIN ---------------- */
+  #loginScreen{
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(255,90,31,0.18), transparent 45%),
+      linear-gradient(180deg, var(--ink), var(--ink-2));
+    padding:24px;
+  }
+  .login-card{
+    background:rgba(255,255,255,0.03); border:1px solid var(--line); border-radius:4px;
+    padding:44px 40px; width:100%; max-width:380px; color:var(--white); position:relative;
+  }
+  .login-card .crop{ position:absolute; width:14px; height:14px; }
+  .login-card .crop::before,.login-card .crop::after{ content:""; position:absolute; background:var(--orange); }
+  .login-card .crop::before{ width:100%; height:1px; top:50%; }
+  .login-card .crop::after{ width:1px; height:100%; left:50%; }
+  .login-card .crop.tl{ top:14px; left:14px; } .login-card .crop.br{ bottom:14px; right:14px; }
+  .login-tag{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.15em; color:var(--orange); text-transform:uppercase; }
+  .login-card h1{ font-family:var(--display); font-size:1.9rem; margin-top:14px; font-weight:600; }
+  .login-card p.sub{ color:var(--chrome); font-size:0.9rem; margin-top:10px; }
+  .login-field{ margin-top:22px; }
+  .login-field label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--chrome); display:block; margin-bottom:7px; }
+  .login-field input{
+    width:100%; background:transparent; border:1px solid var(--line); color:var(--white);
+    padding:11px 12px; border-radius:2px; font-size:0.95rem; outline:none; transition:border-color .2s ease;
+  }
+  .login-field input:focus{ border-color:var(--orange); }
+  .login-btn{
+    width:100%; margin-top:26px; background:var(--orange); color:var(--white); border:none;
+    padding:12px; border-radius:2px; font-family:var(--mono); font-size:0.8rem; letter-spacing:0.08em;
+    text-transform:uppercase; cursor:pointer; transition:background .2s ease;
+  }
+  .login-btn:hover{ background:var(--orange-dim); }
+  .login-error{ margin-top:16px; font-size:0.82rem; color:#ff8a65; display:none; }
+  .login-error.show{ display:block; }
+  .login-hint{ margin-top:22px; font-family:var(--mono); font-size:0.72rem; color:var(--chrome); border-top:1px solid var(--line); padding-top:16px; line-height:1.6; }
+
+  /* ---------------- APP SHELL ---------------- */
+  #app{ display:none; min-height:100vh; grid-template-columns:240px 1fr; }
+  #app.show{ display:grid; }
+  aside{
+    background:var(--ink); color:var(--white); padding:26px 20px; position:sticky; top:0; height:100vh;
+    display:flex; flex-direction:column; justify-content:space-between; overflow-y:auto;
+  }
+  .side-logo{ font-family:var(--display); font-size:1.3rem; font-weight:700; padding:0 6px 24px; border-bottom:1px solid var(--line); margin-bottom:18px; }
+  .side-logo span{ color:var(--orange); }
+  .side-nav button{
+    width:100%; text-align:left; background:none; border:none; color:var(--chrome);
+    font-family:var(--mono); font-size:0.8rem; letter-spacing:0.03em; padding:12px 10px; border-radius:4px;
+    display:flex; align-items:center; gap:10px; cursor:pointer; transition:all .15s ease; margin-bottom:2px;
+  }
+  .side-nav button svg{ width:17px; height:17px; flex:0 0 auto; }
+  .side-nav button:hover{ background:rgba(255,255,255,0.06); color:var(--white); }
+  .side-nav button.active{ background:rgba(255,90,31,0.14); color:var(--orange); }
+  .side-foot{ border-top:1px solid var(--line); padding-top:16px; }
+  .side-foot a{ color:var(--chrome); font-family:var(--mono); font-size:0.74rem; text-decoration:none; display:block; margin-bottom:10px; }
+  .side-foot a:hover{ color:var(--white); }
+  .logout-btn{
+    width:100%; background:none; border:1px solid var(--line); color:var(--white); padding:10px;
+    border-radius:2px; font-family:var(--mono); font-size:0.74rem; cursor:pointer; text-transform:uppercase; letter-spacing:0.05em;
+  }
+  .logout-btn:hover{ border-color:var(--orange); color:var(--orange); }
+
+  main{ padding:36px 40px; max-width:1100px; }
+  .view{ display:none; }
+  .view.active{ display:block; animation:fade .3s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  .page-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:28px; flex-wrap:wrap; gap:14px; }
+  .page-head .eyebrow{ font-family:var(--mono); font-size:0.7rem; letter-spacing:0.15em; color:var(--orange); text-transform:uppercase; }
+  .page-head h2{ font-family:var(--display); font-size:1.9rem; font-weight:600; margin-top:6px; }
+  .page-head p{ color:var(--chrome); font-size:0.88rem; margin-top:6px; max-width:520px; }
+
+  .btn{ display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:0.74rem; letter-spacing:0.05em; text-transform:uppercase; padding:9px 16px; border-radius:2px; border:1px solid transparent; cursor:pointer; transition:all .15s ease; }
+  .btn-solid{ background:var(--ink); color:var(--white); }
+  .btn-solid:hover{ background:#000; }
+  .btn-orange{ background:var(--orange); color:var(--white); }
+  .btn-orange:hover{ background:var(--orange-dim); }
+  .btn-ghost{ border-color:var(--line-dark); color:var(--charcoal); background:var(--white); }
+  .btn-ghost:hover{ border-color:var(--charcoal); }
+  .btn-danger{ border-color:#f3c6c6; color:var(--bad); background:var(--bad-bg); }
+  .btn-danger:hover{ background:#fde2e2; }
+  .btn-sm{ padding:6px 11px; font-size:0.68rem; }
+
+  /* Dashboard */
+  .stat-cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:36px; }
+  .stat-card{ background:var(--white); border:1px solid var(--line-dark); padding:22px; border-radius:3px; }
+  .stat-card .n{ font-family:var(--mono); font-size:2.2rem; color:var(--orange); }
+  .stat-card .l{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--chrome); margin-top:4px; }
+  .dash-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .panel{ background:var(--white); border:1px solid var(--line-dark); border-radius:3px; padding:22px; }
+  .panel h3{ font-family:var(--display); font-size:1.05rem; margin-bottom:14px; }
+  .mini-row{ display:flex; justify-content:space-between; padding:9px 0; border-top:1px solid var(--line-dark); font-size:0.85rem; }
+  .mini-row:first-of-type{ border-top:none; }
+  .mini-row span:last-child{ color:var(--chrome); font-family:var(--mono); font-size:0.78rem; }
+
+  /* Table */
+  .table-wrap{ background:var(--white); border:1px solid var(--line-dark); border-radius:3px; overflow:hidden; }
+  table{ width:100%; border-collapse:collapse; }
+  th{ text-align:left; font-family:var(--mono); font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--chrome); padding:12px 16px; border-bottom:1px solid var(--line-dark); background:var(--paper-2); }
+  td{ padding:13px 16px; border-bottom:1px solid var(--line-dark); font-size:0.87rem; vertical-align:middle; }
+  tr:last-child td{ border-bottom:none; }
+  tr:hover td{ background:#fbfaf7; }
+  .thumb{ width:44px; height:44px; object-fit:cover; border-radius:2px; }
+  .badge{ font-family:var(--mono); font-size:0.65rem; letter-spacing:0.05em; text-transform:uppercase; padding:4px 9px; border-radius:12px; display:inline-block; border:1px solid; }
+  .badge.pending{ color:var(--warn); background:var(--warn-bg); border-color:var(--warn-line); }
+  .badge.confirmed{ color:var(--ok); background:var(--ok-bg); border-color:var(--ok-line); }
+  .badge.cancelled{ color:var(--bad); background:var(--bad-bg); border-color:var(--bad-line); }
+  .badge.new{ color:var(--warn); background:var(--warn-bg); border-color:var(--warn-line); }
+  .badge.contacted{ color:var(--ok); background:var(--ok-bg); border-color:var(--ok-line); }
+  .badge.archived{ color:var(--chrome); background:var(--paper-2); border-color:var(--line-dark); }
+  .row-actions{ display:flex; gap:6px; flex-wrap:wrap; }
+  .empty-state{ padding:50px 20px; text-align:center; color:var(--chrome); }
+  .empty-state svg{ width:36px; height:36px; margin:0 auto 12px; opacity:0.4; }
+  .details-cell{ max-width:220px; color:var(--chrome); font-size:0.82rem; }
+
+  /* Forms / cards for portfolio + testimonials + services */
+  .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:26px; }
+  .item-card{ background:var(--white); border:1px solid var(--line-dark); border-radius:3px; overflow:hidden; }
+  .item-card img{ width:100%; height:130px; object-fit:cover; }
+  .item-card .ic-body{ padding:14px; }
+  .item-card h4{ font-size:0.92rem; font-weight:600; }
+  .item-card .cat{ font-family:var(--mono); font-size:0.66rem; color:var(--orange); text-transform:uppercase; margin-top:4px; display:block; }
+  .item-card .ic-actions{ display:flex; gap:8px; margin-top:12px; }
+
+  .modal-overlay{ position:fixed; inset:0; background:rgba(13,27,42,0.6); z-index:300; display:none; align-items:center; justify-content:center; padding:20px; }
+  .modal-overlay.open{ display:flex; }
+  .modal{ background:var(--white); border-radius:4px; width:100%; max-width:480px; max-height:88vh; overflow-y:auto; padding:30px; }
+  .modal h3{ font-family:var(--display); font-size:1.2rem; margin-bottom:18px; }
+  .field{ margin-bottom:16px; }
+  .field label{ font-family:var(--mono); font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--chrome); display:block; margin-bottom:6px; }
+  .field input, .field select, .field textarea{
+    width:100%; border:1px solid var(--line-dark); padding:9px 11px; border-radius:2px; font-size:0.9rem; outline:none; transition:border-color .2s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--orange); }
+  .field textarea{ min-height:80px; resize:vertical; }
+  .modal-foot{ display:flex; justify-content:flex-end; gap:10px; margin-top:22px; }
+
+  .services-form .svc-row{ background:var(--white); border:1px solid var(--line-dark); border-radius:3px; padding:18px; margin-bottom:12px; }
+  .svc-row label{ font-family:var(--mono); font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--chrome); display:block; margin-bottom:6px; }
+  .svc-row input, .svc-row textarea{ width:100%; border:1px solid var(--line-dark); padding:8px 10px; border-radius:2px; font-size:0.88rem; margin-bottom:10px; }
+  .stats-form{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .stats-form .field input{ text-align:center; font-family:var(--mono); font-size:1.1rem; }
+
+  .toast{
+    position:fixed; bottom:26px; right:26px; background:var(--ink); color:var(--white); padding:14px 20px;
+    border-radius:3px; font-size:0.85rem; z-index:400; display:flex; align-items:center; gap:10px;
+    transform:translateY(20px); opacity:0; pointer-events:none; transition:all .25s ease; border-left:3px solid var(--orange);
+  }
+  .toast.show{ transform:translateY(0); opacity:1; }
+
+  .filter-bar{ display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center; }
+  .filter-bar select, .filter-bar input{ border:1px solid var(--line-dark); padding:8px 12px; border-radius:2px; font-size:0.82rem; }
+
+  @media (max-width:900px){
+    #app.show{ grid-template-columns:1fr; }
+    aside{ position:relative; height:auto; }
+    .stat-cards, .card-grid, .dash-grid{ grid-template-columns:1fr 1fr; }
+    .stats-form{ grid-template-columns:1fr 1fr; }
+    main{ padding:24px 18px; }
+  }
+  @media (max-width:560px){
+    .stat-cards, .card-grid, .dash-grid, .stats-form{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="crop tl"></div><div class="crop br"></div>
+    <div class="login-tag">Anura Advertising</div>
+    <h1 class="display">Admin Panel</h1>
+    <p class="sub">Sign in to manage portfolio, bookings, quotes, testimonials and site content.</p>
+    <form id="loginForm">
+      <div class="login-field">
+        <label>Username</label>
+        <input type="text" id="loginUser" autocomplete="username" required>
+      </div>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" id="loginPass" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="login-btn">Sign In</button>
+      <div class="login-error" id="loginError">Incorrect username or password.</div>
+    </form>
+    <div class="login-hint">
+      Default login: <strong style="color:#fff">admin</strong> / <strong style="color:#fff">anura123</strong><br>
+      This demo login checks credentials stored in this browser only. For real production use, replace it with a proper server-side login.
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <aside>
+    <div>
+      <div class="side-logo">ANURA<span>.</span> <span style="color:var(--chrome); font-size:0.65rem; letter-spacing:0.1em; display:block; margin-top:2px;">ADMIN</span></div>
+      <nav class="side-nav" id="sideNav">
+        <button data-view="dashboard" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg>Dashboard</button>
+        <button data-view="bookings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Bookings</button>
+        <button data-view="quotes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>Quote Requests</button>
+        <button data-view="portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Portfolio</button>
+        <button data-view="testimonials"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4A8.5 8.5 0 1 1 21 11.5z"/></svg>Testimonials</button>
+        <button data-view="services"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>Services &amp; Stats</button>
+      </nav>
+    </div>
+    <div class="side-foot">
+      <a href="index.html" target="_blank">↗ View live site</a>
+      <button class="logout-btn" id="logoutBtn">Log Out</button>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Overview</div>
+          <h2 class="display">Dashboard</h2>
+          <p>A snapshot of what's happening across your site.</p>
+        </div>
+      </div>
+      <div class="stat-cards" id="dashStats"></div>
+      <div class="dash-grid">
+        <div class="panel">
+          <h3>Recent bookings</h3>
+          <div id="dashBookings"></div>
+        </div>
+        <div class="panel">
+          <h3>Recent quote requests</h3>
+          <div id="dashQuotes"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKINGS -->
+    <section class="view" id="view-bookings">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Schedule</div>
+          <h2 class="display">Bookings</h2>
+          <p>Site-visit bookings made through the "Book a free site visit" widget.</p>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <select id="bookingStatusFilter">
+          <option value="all">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="table-wrap"><div id="bookingsTable"></div></div>
+    </section>
+
+    <!-- QUOTES -->
+    <section class="view" id="view-quotes">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Inbox</div>
+          <h2 class="display">Quote Requests</h2>
+          <p>Submissions from the "Request a Quote" form.</p>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <select id="quoteStatusFilter">
+          <option value="all">All statuses</option>
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="archived">Archived</option>
+        </select>
+      </div>
+      <div class="table-wrap"><div id="quotesTable"></div></div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="view" id="view-portfolio">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Gallery</div>
+          <h2 class="display">Portfolio</h2>
+          <p>Items shown in the site's Portfolio grid — changes appear on the live site immediately (same browser).</p>
+        </div>
+        <button class="btn btn-orange" id="addPortfolioBtn">+ Add Item</button>
+      </div>
+      <div class="card-grid" id="portfolioCards"></div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="view" id="view-testimonials">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Social Proof</div>
+          <h2 class="display">Testimonials</h2>
+          <p>Quotes shown in the rotating testimonial carousel.</p>
+        </div>
+        <button class="btn btn-orange" id="addTestimonialBtn">+ Add Testimonial</button>
+      </div>
+      <div id="testimonialsList"></div>
+    </section>
+
+    <!-- SERVICES & STATS -->
+    <section class="view" id="view-services">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Content</div>
+          <h2 class="display">Services &amp; Stats</h2>
+          <p>Edit the five service cards and the "Years / Projects / Clients / Team" counters on the About section.</p>
+        </div>
+        <button class="btn btn-orange" id="saveServicesBtn">Save Changes</button>
+      </div>
+      <div class="panel" style="margin-bottom:20px;">
+        <h3>Stats counters</h3>
+        <div class="stats-form" id="statsForm"></div>
+      </div>
+      <div class="services-form" id="servicesForm"></div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Portfolio modal -->
+<div class="modal-overlay" id="portfolioModal">
+  <div class="modal">
+    <h3 id="portfolioModalTitle">Add Portfolio Item</h3>
+    <form id="portfolioForm">
+      <input type="hidden" id="pfId">
+      <div class="field"><label>Title</label><input type="text" id="pfTitle" required placeholder="e.g. City Cab Fleet Wrap"></div>
+      <div class="field"><label>Category</label>
+        <select id="pfCategory">
+          <option value="bus">Bus Branding</option>
+          <option value="truck">Truck Branding</option>
+          <option value="vehicle">Vehicle Branding</option>
+          <option value="outdoor">Outdoor Advertising</option>
+          <option value="indoor">Indoor Advertising</option>
+        </select>
+      </div>
+      <div class="field"><label>Image URL</label><input type="url" id="pfImg" required placeholder="https://…"></div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn-orange">Save Item</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Testimonial modal -->
+<div class="modal-overlay" id="testimonialModal">
+  <div class="modal">
+    <h3 id="testimonialModalTitle">Add Testimonial</h3>
+    <form id="testimonialForm">
+      <input type="hidden" id="tId">
+      <div class="field"><label>Quote</label><textarea id="tQuote" required placeholder="What the client said…"></textarea></div>
+      <div class="field"><label>Author</label><input type="text" id="tAuthor" required placeholder="e.g. Fleet Owner"></div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+        <button type="submit" class="btn btn-orange">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="anura-data.js"></script>
+<script>
+(function(){
+  // ---------------- LOGIN ----------------
+  const loginScreen = document.getElementById('loginScreen');
+  const app = document.getElementById('app');
+  const loginForm = document.getElementById('loginForm');
+  const loginError = document.getElementById('loginError');
+
+  function isLoggedIn(){ return sessionStorage.getItem('anura_admin_session') === '1'; }
+  function showApp(){ loginScreen.style.display='none'; app.classList.add('show'); renderAll(); }
+  function showLogin(){ loginScreen.style.display='flex'; app.classList.remove('show'); }
+
+  if(isLoggedIn()) showApp(); else showLogin();
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const u = document.getElementById('loginUser').value.trim();
+    const p = document.getElementById('loginPass').value;
+    const auth = AnuraData.get('auth');
+    if(u === auth.user && p === auth.pass){
+      sessionStorage.setItem('anura_admin_session','1');
+      loginError.classList.remove('show');
+      showApp();
+    } else {
+      loginError.classList.add('show');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', function(){
+    sessionStorage.removeItem('anura_admin_session');
+    showLogin();
+  });
+
+  // ---------------- NAV ----------------
+  const navBtns = document.querySelectorAll('.side-nav button');
+  navBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      navBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+      document.getElementById('view-'+btn.dataset.view).classList.add('active');
+      if(btn.dataset.view==='dashboard') renderDashboard();
+    });
+  });
+
+  // ---------------- TOAST ----------------
+  let toastTimer;
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> t.classList.remove('show'), 2400);
+  }
+
+  // ---------------- HELPERS ----------------
+  const CAT_LABELS = { bus:'Bus Branding', truck:'Truck Branding', vehicle:'Vehicle Branding', outdoor:'Outdoor Advertising', indoor:'Indoor Advertising' };
+  function fmtDate(iso){
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+  }
+  function fmtDateTime(iso){
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short' }) + ', ' + d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }
+  function esc(str){
+    const div = document.createElement('div');
+    div.textContent = str == null ? '' : str;
+    return div.innerHTML;
+  }
+
+  // ---------------- DASHBOARD ----------------
+  function renderDashboard(){
+    const bookings = AnuraData.get('bookings');
+    const quotes = AnuraData.get('quotes');
+    const portfolio = AnuraData.get('portfolio');
+    const testimonials = AnuraData.get('testimonials');
+
+    document.getElementById('dashStats').innerHTML = `
+      <div class="stat-card"><div class="n">${bookings.length}</div><div class="l">Total Bookings</div></div>
+      <div class="stat-card"><div class="n">${quotes.filter(q=>q.status==='new').length}</div><div class="l">New Quote Requests</div></div>
+      <div class="stat-card"><div class="n">${portfolio.length}</div><div class="l">Portfolio Items</div></div>
+      <div class="stat-card"><div class="n">${testimonials.length}</div><div class="l">Testimonials</div></div>
+    `;
+
+    const recentBookings = [...bookings].sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt)).slice(0,5);
+    document.getElementById('dashBookings').innerHTML = recentBookings.length
+      ? recentBookings.map(b=>`<div class="mini-row"><span>${esc(b.name)} — ${esc(b.service)}</span><span>${fmtDate(b.date)}</span></div>`).join('')
+      : '<div class="mini-row"><span style="color:var(--chrome)">No bookings yet</span></div>';
+
+    const recentQuotes = [...quotes].sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt)).slice(0,5);
+    document.getElementById('dashQuotes').innerHTML = recentQuotes.length
+      ? recentQuotes.map(q=>`<div class="mini-row"><span>${esc(q.name)} — ${esc(q.service)}</span><span>${fmtDate(q.createdAt)}</span></div>`).join('')
+      : '<div class="mini-row"><span style="color:var(--chrome)">No quote requests yet</span></div>';
+  }
+
+  // ---------------- BOOKINGS ----------------
+  function renderBookings(){
+    const filter = document.getElementById('bookingStatusFilter').value;
+    let list = [...AnuraData.get('bookings')].sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt));
+    if(filter !== 'all') list = list.filter(b=>b.status===filter);
+    const wrap = document.getElementById('bookingsTable');
+    if(!list.length){
+      wrap.innerHTML = '<div class="empty-state">No bookings match this filter.</div>';
+      return;
+    }
+    wrap.innerHTML = `<table><thead><tr><th>Reference</th><th>Client</th><th>Service</th><th>Date &amp; Time</th><th>Status</th><th></th></tr></thead><tbody>
+      ${list.map(b=>`
+        <tr>
+          <td class="mono">${esc(b.ref)}</td>
+          <td>${esc(b.name)}<br><span style="color:var(--chrome); font-size:0.78rem">${esc(b.phone)}</span></td>
+          <td>${esc(b.service)}</td>
+          <td class="mono">${fmtDate(b.date)}<br><span style="color:var(--chrome); font-size:0.78rem">${esc(b.time)}</span></td>
+          <td><span class="badge ${b.status}">${b.status}</span></td>
+          <td><div class="row-actions">
+            ${b.status!=='confirmed' ? `<button class="btn btn-ghost btn-sm" data-action="confirm-booking" data-id="${b.id}">Confirm</button>` : ''}
+            ${b.status!=='cancelled' ? `<button class="btn btn-ghost btn-sm" data-action="cancel-booking" data-id="${b.id}">Cancel</button>` : ''}
+            <button class="btn btn-danger btn-sm" data-action="delete-booking" data-id="${b.id}">Delete</button>
+          </div></td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+  document.getElementById('bookingStatusFilter').addEventListener('change', renderBookings);
+  document.getElementById('bookingsTable').addEventListener('click', function(e){
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const id = btn.dataset.id;
+    if(btn.dataset.action==='confirm-booking'){ AnuraData.update('bookings', id, {status:'confirmed'}); toast('Booking confirmed'); }
+    if(btn.dataset.action==='cancel-booking'){ AnuraData.update('bookings', id, {status:'cancelled'}); toast('Booking cancelled'); }
+    if(btn.dataset.action==='delete-booking'){ if(confirm('Delete this booking permanently?')){ AnuraData.remove('bookings', id); toast('Booking deleted'); } }
+    renderBookings(); renderDashboard();
+  });
+
+  // ---------------- QUOTES ----------------
+  function renderQuotes(){
+    const filter = document.getElementById('quoteStatusFilter').value;
+    let list = [...AnuraData.get('quotes')].sort((a,b)=> new Date(b.createdAt)-new Date(a.createdAt));
+    if(filter !== 'all') list = list.filter(q=>q.status===filter);
+    const wrap = document.getElementById('quotesTable');
+    if(!list.length){
+      wrap.innerHTML = '<div class="empty-state">No quote requests match this filter.</div>';
+      return;
+    }
+    wrap.innerHTML = `<table><thead><tr><th>Client</th><th>Service</th><th>Details</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody>
+      ${list.map(q=>`
+        <tr>
+          <td>${esc(q.name)}<br><span style="color:var(--chrome); font-size:0.78rem">${esc(q.phone)}${q.email? ' · '+esc(q.email):''}</span></td>
+          <td>${esc(q.service)}</td>
+          <td class="details-cell">${esc(q.details) || '—'}</td>
+          <td class="mono">${fmtDate(q.createdAt)}</td>
+          <td><span class="badge ${q.status}">${q.status}</span></td>
+          <td><div class="row-actions">
+            ${q.status!=='contacted' ? `<button class="btn btn-ghost btn-sm" data-action="contact-quote" data-id="${q.id}">Mark Contacted</button>` : ''}
+            ${q.status!=='archived' ? `<button class="btn btn-ghost btn-sm" data-action="archive-quote" data-id="${q.id}">Archive</button>` : ''}
+            <button class="btn btn-danger btn-sm" data-action="delete-quote" data-id="${q.id}">Delete</button>
+          </div></td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+  document.getElementById('quoteStatusFilter').addEventListener('change', renderQuotes);
+  document.getElementById('quotesTable').addEventListener('click', function(e){
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const id = btn.dataset.id;
+    if(btn.dataset.action==='contact-quote'){ AnuraData.update('quotes', id, {status:'contacted'}); toast('Marked as contacted'); }
+    if(btn.dataset.action==='archive-quote'){ AnuraData.update('quotes', id, {status:'archived'}); toast('Quote archived'); }
+    if(btn.dataset.action==='delete-quote'){ if(confirm('Delete this quote request permanently?')){ AnuraData.remove('quotes', id); toast('Quote deleted'); } }
+    renderQuotes(); renderDashboard();
+  });
+
+  // ---------------- PORTFOLIO ----------------
+  const portfolioModal = document.getElementById('portfolioModal');
+  const portfolioForm = document.getElementById('portfolioForm');
+  function renderPortfolioCards(){
+    const items = AnuraData.get('portfolio');
+    const wrap = document.getElementById('portfolioCards');
+    if(!items.length){ wrap.innerHTML = '<div class="empty-state">No portfolio items yet. Click "Add Item" to create one.</div>'; return; }
+    wrap.innerHTML = items.map(p=>`
+      <div class="item-card">
+        <img src="${esc(p.img)}" alt="${esc(p.title)}" onerror="this.style.opacity=0.3">
+        <div class="ic-body">
+          <h4>${esc(p.title)}</h4>
+          <span class="cat">${CAT_LABELS[p.category]||p.category}</span>
+          <div class="ic-actions">
+            <button class="btn btn-ghost btn-sm" data-action="edit-pf" data-id="${p.id}">Edit</button>
+            <button class="btn btn-danger btn-sm" data-action="del-pf" data-id="${p.id}">Delete</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+  function openPortfolioModal(item){
+    document.getElementById('portfolioModalTitle').textContent = item ? 'Edit Portfolio Item' : 'Add Portfolio Item';
+    document.getElementById('pfId').value = item ? item.id : '';
+    document.getElementById('pfTitle').value = item ? item.title : '';
+    document.getElementById('pfCategory').value = item ? item.category : 'bus';
+    document.getElementById('pfImg').value = item ? item.img : '';
+    portfolioModal.classList.add('open');
+  }
+  document.getElementById('addPortfolioBtn').addEventListener('click', ()=> openPortfolioModal(null));
+  document.getElementById('portfolioCards').addEventListener('click', function(e){
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const id = btn.dataset.id;
+    if(btn.dataset.action==='edit-pf'){
+      const item = AnuraData.get('portfolio').find(p=>p.id===id);
+      openPortfolioModal(item);
+    }
+    if(btn.dataset.action==='del-pf'){
+      if(confirm('Delete this portfolio item?')){ AnuraData.remove('portfolio', id); renderPortfolioCards(); renderDashboard(); toast('Portfolio item deleted'); }
+    }
+  });
+  portfolioForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const id = document.getElementById('pfId').value;
+    const data = {
+      title: document.getElementById('pfTitle').value.trim(),
+      category: document.getElementById('pfCategory').value,
+      img: document.getElementById('pfImg').value.trim(),
+    };
+    if(id){ AnuraData.update('portfolio', id, data); toast('Portfolio item updated'); }
+    else{ AnuraData.add('portfolio', Object.assign({id: AnuraData.uid('p')}, data)); toast('Portfolio item added'); }
+    portfolioModal.classList.remove('open');
+    renderPortfolioCards(); renderDashboard();
+  });
+
+  // ---------------- TESTIMONIALS ----------------
+  const testimonialModal = document.getElementById('testimonialModal');
+  const testimonialForm = document.getElementById('testimonialForm');
+  function renderTestimonials(){
+    const items = AnuraData.get('testimonials');
+    const wrap = document.getElementById('testimonialsList');
+    if(!items.length){ wrap.innerHTML = '<div class="empty-state">No testimonials yet.</div>'; return; }
+    wrap.innerHTML = `<div class="table-wrap"><table><thead><tr><th>Quote</th><th>Author</th><th></th></tr></thead><tbody>
+      ${items.map(t=>`
+        <tr>
+          <td class="details-cell" style="max-width:420px">${esc(t.quote)}</td>
+          <td>${esc(t.author)}</td>
+          <td><div class="row-actions">
+            <button class="btn btn-ghost btn-sm" data-action="edit-t" data-id="${t.id}">Edit</button>
+            <button class="btn btn-danger btn-sm" data-action="del-t" data-id="${t.id}">Delete</button>
+          </div></td>
+        </tr>`).join('')}
+    </tbody></table></div>`;
+  }
+  function openTestimonialModal(item){
+    document.getElementById('testimonialModalTitle').textContent = item ? 'Edit Testimonial' : 'Add Testimonial';
+    document.getElementById('tId').value = item ? item.id : '';
+    document.getElementById('tQuote').value = item ? item.quote : '';
+    document.getElementById('tAuthor').value = item ? item.author : '';
+    testimonialModal.classList.add('open');
+  }
+  document.getElementById('addTestimonialBtn').addEventListener('click', ()=> openTestimonialModal(null));
+  document.getElementById('testimonialsList').addEventListener('click', function(e){
+    const btn = e.target.closest('button[data-action]');
+    if(!btn) return;
+    const id = btn.dataset.id;
+    if(btn.dataset.action==='edit-t'){
+      const item = AnuraData.get('testimonials').find(t=>t.id===id);
+      openTestimonialModal(item);
+    }
+    if(btn.dataset.action==='del-t'){
+      if(confirm('Delete this testimonial?')){ AnuraData.remove('testimonials', id); renderTestimonials(); renderDashboard(); toast('Testimonial deleted'); }
+    }
+  });
+  testimonialForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const id = document.getElementById('tId').value;
+    const data = { quote: document.getElementById('tQuote').value.trim(), author: document.getElementById('tAuthor').value.trim() };
+    if(id){ AnuraData.update('testimonials', id, data); toast('Testimonial updated'); }
+    else{ AnuraData.add('testimonials', Object.assign({id: AnuraData.uid('t')}, data)); toast('Testimonial added'); }
+    testimonialModal.classList.remove('open');
+    renderTestimonials(); renderDashboard();
+  });
+
+  // Modal close handlers
+  document.querySelectorAll('[data-close-modal]').forEach(btn=>{
+    btn.addEventListener('click', ()=> btn.closest('.modal-overlay').classList.remove('open'));
+  });
+  document.querySelectorAll('.modal-overlay').forEach(ov=>{
+    ov.addEventListener('click', (e)=>{ if(e.target===ov) ov.classList.remove('open'); });
+  });
+
+  // ---------------- SERVICES & STATS ----------------
+  function renderServicesForm(){
+    const services = AnuraData.get('services');
+    const wrap = document.getElementById('servicesForm');
+    wrap.innerHTML = services.map((s,i)=>`
+      <div class="svc-row" data-id="${s.id}">
+        <label>Service ${i+1} — Title</label>
+        <input type="text" class="svc-title" value="${esc(s.title)}">
+        <label>Description</label>
+        <textarea class="svc-desc">${esc(s.desc)}</textarea>
+      </div>`).join('');
+
+    const stats = AnuraData.get('stats');
+    document.getElementById('statsForm').innerHTML = `
+      <div class="field"><label>Years Experience</label><input type="number" id="statYearsInput" value="${stats.years}"></div>
+      <div class="field"><label>Projects Completed</label><input type="number" id="statProjectsInput" value="${stats.projects}"></div>
+      <div class="field"><label>Happy Clients</label><input type="number" id="statClientsInput" value="${stats.clients}"></div>
+      <div class="field"><label>Team Members</label><input type="number" id="statTeamInput" value="${stats.team}"></div>
+    `;
+  }
+  document.getElementById('saveServicesBtn').addEventListener('click', function(){
+    const rows = document.querySelectorAll('.svc-row');
+    const services = AnuraData.get('services');
+    rows.forEach(row=>{
+      const id = row.dataset.id;
+      const idx = services.findIndex(s=>s.id===id);
+      if(idx>-1){
+        services[idx].title = row.querySelector('.svc-title').value.trim();
+        services[idx].desc = row.querySelector('.svc-desc').value.trim();
+      }
+    });
+    AnuraData.set('services', services);
+    AnuraData.set('stats', {
+      years: parseInt(document.getElementById('statYearsInput').value,10) || 0,
+      projects: parseInt(document.getElementById('statProjectsInput').value,10) || 0,
+      clients: parseInt(document.getElementById('statClientsInput').value,10) || 0,
+      team: parseInt(document.getElementById('statTeamInput').value,10) || 0,
+    });
+    toast('Services & stats saved — refresh the live site to see changes');
+    renderDashboard();
+  });
+
+  // ---------------- INIT ----------------
+  function renderAll(){
+    renderDashboard();
+    renderBookings();
+    renderQuotes();
+    renderPortfolioCards();
+    renderTestimonials();
+    renderServicesForm();
+  }
+})();
+</script>
+</body>
+</html>
